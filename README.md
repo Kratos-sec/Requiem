@@ -138,9 +138,14 @@ python -m venv .venv
 # Install dependencies
 pip install -r requirements.txt
 
+# Download Nuclei into qshield-backend/nuclei.exe
+powershell -ExecutionPolicy Bypass -File .\scripts\setup-tools.ps1
+
 # Run backend
 uvicorn backend.app.main:app --reload
 ```
+
+If you want to skip the script, you can also place `nuclei.exe` directly in the `qshield-backend/` folder. The backend looks for that file there first.
 
 ---
 
