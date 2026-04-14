@@ -204,20 +204,6 @@ function ChatBubble({ message, onCopy, isCopied }) {
           </div>
         )}
 
-        {!isUser && !message.pending && (message.provider || message.model) && (
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-on-surface-variant/80">
-            {message.provider && (
-              <span className="rounded-full border border-outline-variant/30 bg-surface px-2.5 py-1">
-                {message.provider}
-              </span>
-            )}
-            {message.model && (
-              <span className="rounded-full border border-outline-variant/30 bg-surface px-2.5 py-1 normal-case tracking-normal">
-                {message.model}
-              </span>
-            )}
-          </div>
-        )}
       </article>
     </div>
   );
