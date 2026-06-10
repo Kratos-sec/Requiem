@@ -1,4 +1,6 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useContext, useMemo, useState, useEffect } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { canAccess } from '../utils/roleAccess';
 
 const domainRegex = /^(?!-)(?:[a-z0-9-]{1,63}\.)+[a-z]{2,63}$/i;
 const ipRegex    = /^(?:\d{1,3}\.){3}\d{1,3}$/;
@@ -15,12 +17,18 @@ const sanitizeDomain = (value) => {
 const isValidDomain = (value) => domainRegex.test(value) || ipRegex.test(value);
 
 export default function TopBar({ onScan, onStopScan, isScanning = false }) {
+  const { user } = useContext(AuthContext);
   const [domain, setDomain]         = useState('');
   const [inputError, setInputError] = useState('');
   const [useCrtsh, setUseCrtsh]     = useState(false);
   const [focused, setFocused]       = useState(false);
+  const canRunScan = canAccess(user?.role, 'scan');
 
   const handleSubmit = () => {
+    if (!canRunScan) {
+      setInputError('Your role does not allow running scans.');
+      return;
+    }
     setInputError('');
     const sanitized = sanitizeDomain(domain);
     if (!sanitized) { setInputError('Please enter a domain to scan.'); return; }
@@ -32,7 +40,14 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
   const stopScan = async () => { try { await onStopScan?.(); } catch { /* no-op */ } };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); isScanning ? stopScan() : handleSubmit(); }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!canRunScan) {
+        setInputError('Your role does not allow running scans.');
+        return;
+      }
+      isScanning ? stopScan() : handleSubmit();
+    }
   };
 
   // Auto-dismiss helper text after 5 seconds
@@ -155,12 +170,21 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
             onBlur={() => setFocused(false)}
             placeholder="Scan a domain  e.g. pnb.co.in…"
             aria-invalid={Boolean(inputError)}
+            disabled={!canRunScan}
             className="w-full pl-11 pr-40 py-2.5 text-sm font-medium outline-none transition-all duration-200"
             style={{
-              background: focused ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.06)',
-              border: focused ? '1.5px solid rgba(255, 255, 255, 0.3)' : '1.5px solid rgba(255, 255, 255, 0.12)',
+              background: !canRunScan
+                ? 'rgba(255, 255, 255, 0.04)'
+                : focused
+                  ? 'rgba(255, 255, 255, 0.12)'
+                  : 'rgba(255, 255, 255, 0.06)',
+              border: !canRunScan
+                ? '1.5px solid rgba(255, 255, 255, 0.08)'
+                : focused
+                  ? '1.5px solid rgba(255, 255, 255, 0.3)'
+                  : '1.5px solid rgba(255, 255, 255, 0.12)',
               borderRadius: '12px',
-              color: '#fff',
+              color: !canRunScan ? 'rgba(255,255,255,0.45)' : '#fff',
               caretColor: '#FABC0A',
               boxShadow: focused
                 ? 'inset 0 1px 4px rgba(0, 0, 0, 0.2)'
@@ -170,53 +194,71 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
 
           {/* Inline controls */}
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
-            {/* crt.sh toggle */}
-            <label
-              className="flex items-center gap-1.5 cursor-pointer px-2 py-1 rounded-lg select-none"
-              title="Enumerate subdomains via crt.sh"
-              style={{ color: 'rgba(255, 255, 255, 0.5)' }}
-            >
-              <input
-                type="checkbox"
-                checked={useCrtsh}
-                onChange={(e) => setUseCrtsh(e.target.checked)}
-                className="h-3.5 w-3.5 accent-secondary rounded"
-              />
-              <span style={{ fontSize: '9px', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                crt.sh
-              </span>
-            </label>
+            {canRunScan ? (
+              <>
+                {/* crt.sh toggle */}
+                <label
+                  className="flex items-center gap-1.5 cursor-pointer px-2 py-1 rounded-lg select-none"
+                  title="Enumerate subdomains via crt.sh"
+                  style={{ color: 'rgba(255, 255, 255, 0.5)' }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={useCrtsh}
+                    onChange={(e) => setUseCrtsh(e.target.checked)}
+                    className="h-3.5 w-3.5 accent-secondary rounded"
+                  />
+                  <span style={{ fontSize: '9px', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                    crt.sh
+                  </span>
+                </label>
 
-            <span style={{ width: '1px', height: '16px', background: 'rgba(255, 255, 255, 0.15)' }} />
+                <span style={{ width: '1px', height: '16px', background: 'rgba(255, 255, 255, 0.15)' }} />
 
-            {/* Run / Stop button */}
-            {!isScanning ? (
-              <button
-                onClick={handleSubmit}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs uppercase tracking-widest text-white transition-all duration-200 hover:brightness-115 active:scale-[0.97]"
-                style={{
-                  background: 'linear-gradient(135deg, #FABC0A 0%, #D49D00 100%)',
-                  boxShadow: '0 2px 10px rgba(250, 188, 10, 0.4)',
-                  letterSpacing: '0.15em',
-                  color: '#4B3600'
-                }}
-              >
-                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>radar</span>
-                Run
-              </button>
+                {/* Run / Stop button */}
+                {!isScanning ? (
+                  <button
+                    onClick={handleSubmit}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs uppercase tracking-widest text-white transition-all duration-200 hover:brightness-115 active:scale-[0.97]"
+                    style={{
+                      background: 'linear-gradient(135deg, #FABC0A 0%, #D49D00 100%)',
+                      boxShadow: '0 2px 10px rgba(250, 188, 10, 0.4)',
+                      letterSpacing: '0.15em',
+                      color: '#4B3600'
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>radar</span>
+                    Run
+                  </button>
+                ) : (
+                  <button
+                    onClick={stopScan}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs uppercase tracking-widest text-white transition-all duration-200 hover:brightness-115 active:scale-[0.97]"
+                    style={{
+                      background: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)',
+                      boxShadow: '0 2px 10px rgba(239, 68, 68, 0.4)',
+                      letterSpacing: '0.15em',
+                    }}
+                  >
+                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>stop_circle</span>
+                    Stop
+                  </button>
+                )}
+              </>
             ) : (
-              <button
-                onClick={stopScan}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs uppercase tracking-widest text-white transition-all duration-200 hover:brightness-115 active:scale-[0.97]"
+              <div
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl"
                 style={{
-                  background: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)',
-                  boxShadow: '0 2px 10px rgba(239, 68, 68, 0.4)',
-                  letterSpacing: '0.15em',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  color: 'rgba(255,255,255,0.72)',
                 }}
               >
-                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>stop_circle</span>
-                Stop
-              </button>
+                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                <span style={{ fontSize: '9px', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                  Read only
+                </span>
+              </div>
             )}
           </div>
         </div>

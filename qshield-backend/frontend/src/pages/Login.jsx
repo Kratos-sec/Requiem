@@ -76,6 +76,13 @@ const OtpInput = ({ value, onChange }) => {
   );
 };
 
+const DEMO_LOGINS = [
+  { label: 'Admin', email: 'admin@requiem.local', password: 'Admin#2026', role: 'admin' },
+  { label: 'Viewer', email: 'viewer@requiem.local', password: 'Viewer#2026', role: 'viewer' },
+  { label: 'Auditor', email: 'auditor@requiem.local', password: 'Auditor#2026', role: 'auditor' },
+  { label: 'IT Admin', email: 'itadmin@requiem.local', password: 'Itadmin#2026', role: 'itadmin' },
+];
+
 export default function Login() {
   const [step, setStep] = useState('credentials'); // 'credentials' | '2fa'
   const [email, setEmail] = useState('');
@@ -94,15 +101,14 @@ export default function Login() {
     if (otpCode.length === 6 && step === '2fa') handle2FA();
   }, [otpCode]);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const submitLogin = async (overrideEmail = email, overridePassword = password) => {
     setError(null);
     setLoading(true);
     try {
       const response = await fetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ username: email, password }),
+        body: new URLSearchParams({ username: overrideEmail, password: overridePassword }),
       });
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
@@ -111,7 +117,7 @@ export default function Login() {
       const data = await response.json();
       if (data.requires_2fa) {
         // Backend returned a short-lived temp_token — store it for the 2FA step
-        setPendingEmail(email);
+        setPendingEmail(overrideEmail);
         setTempToken(data.temp_token);
         setStep('2fa');
       } else {
@@ -123,6 +129,19 @@ export default function Login() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await submitLogin();
+  };
+
+  const handleQuickLogin = (account) => {
+    setStep('credentials');
+    setEmail(account.email);
+    setPassword(account.password);
+    setError(null);
+    void submitLogin(account.email, account.password);
   };
 
   const handle2FA = async () => {
@@ -216,7 +235,7 @@ export default function Login() {
 
           {/* Card */}
           <div
-            className="rounded-2xl border border-[#e5dfd3] shadow-2xl shadow-[#B50A2E]/8 p-8 relative overflow-hidden"
+            className="rounded-2xl border border-[#e5dfd3] shadow-2xl shadow-[#B50A2E]/8 p-7 sm:p-8 relative overflow-hidden"
             style={{ background: 'linear-gradient(135deg, rgba(253,251,246,0.97) 0%, rgba(248,244,236,0.97) 100%)', backdropFilter: 'blur(24px)' }}
           >
             {/* Card top highlight */}
@@ -224,7 +243,7 @@ export default function Login() {
 
             {step === 'credentials' ? (
               <>
-                <div className="mb-8">
+                <div className="mb-6">
                   <h2 className="text-[28px] font-black text-[#721c24] tracking-tight leading-tight">Welcome back</h2>
                   <p className="text-[#8d7070] text-sm mt-1">Sign in to your Requiem account</p>
                 </div>
@@ -236,7 +255,21 @@ export default function Login() {
                   </div>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-3.5">
+                  <div className="flex flex-wrap gap-2">
+                    {DEMO_LOGINS.map((account) => (
+                      <button
+                        key={account.role}
+                        type="button"
+                        onClick={() => handleQuickLogin(account)}
+                        className="inline-flex min-w-0 flex-1 basis-[calc(50%-0.25rem)] flex-col rounded-full border border-[#e1bebe] bg-white/70 px-3 py-2 text-left transition-all hover:border-[#B50A2E] hover:bg-white"
+                      >
+                        <div className="text-[9px] uppercase tracking-[0.18em] font-black text-[#8d7070]">{account.label}</div>
+                        <div className="text-[10px] font-semibold text-[#721c24] mt-0.5 truncate w-full">{account.email}</div>
+                      </button>
+                    ))}
+                  </div>
+
                   <InputField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="admin@requiem.com" icon="mail" required />
                   <div>
                     <label className="block text-[10px] font-black text-[#594141] uppercase tracking-[0.18em] mb-1.5">Password</label>
@@ -268,7 +301,7 @@ export default function Login() {
                   </button>
                 </form>
 
-                <div className="mt-6 text-center text-sm text-[#8d7070]">
+                <div className="mt-5 text-center text-sm text-[#8d7070]">
                   Don't have an account?{' '}
                   <Link to="/signup" className="text-[#B50A2E] font-bold hover:text-[#8A0520] transition-colors">Sign up</Link>
                 </div>
@@ -277,10 +310,10 @@ export default function Login() {
               /* ── 2FA Step ── */
               <>
                 <button onClick={() => { setStep('credentials'); setOtpCode(''); setError(null); }}
-                  className="flex items-center gap-1 text-[#8d7070] hover:text-[#B50A2E] text-xs font-bold uppercase tracking-widest mb-6 transition-colors">
+                  className="flex items-center gap-1 text-[#8d7070] hover:text-[#B50A2E] text-xs font-bold uppercase tracking-widest mb-4 transition-colors">
                   <span className="material-symbols-outlined text-[15px]">arrow_back</span> Back
                 </button>
-                <div className="text-center mb-6">
+                <div className="text-center mb-5">
                   <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg"
                     style={{ background: 'linear-gradient(135deg, #FABC0A 0%, #D49D00 100%)' }}>
                     <span className="material-symbols-outlined text-white text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>phonelink_lock</span>

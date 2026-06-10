@@ -4,6 +4,7 @@ import socket
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
+from urllib.parse import urlparse
 from pathlib import Path
 from typing import Callable, Iterable, List, Tuple
 
@@ -131,6 +132,23 @@ def clean_domain(url: str) -> str:
     stripped = stripped.rstrip("/").strip()
     stripped = stripped.split("/")[0]
     return stripped
+
+
+def _normalize_httpx_target(raw: str) -> str:
+    """
+    Convert httpx output into a plain hostname that our validators and
+    downstream scans can consume.
+    """
+    candidate = raw.strip()
+    if not candidate:
+        return ""
+
+    parsed = urlparse(candidate if "://" in candidate else f"//{candidate}")
+    host = parsed.hostname or ""
+    if not host:
+        host = candidate.split()[0].split("/")[0]
+
+    return clean_domain(host)
 
 
 def _locate_executable(name: str, fallback: str | None = None) -> List[str]:
@@ -376,8 +394,8 @@ def _run_httpx(
         for line in result.stdout.splitlines():
             if not line:
                 continue
-            url = line.split()[0]
-            cleaned = clean_domain(url)
+            raw_target = line.split()[0]
+            cleaned = _normalize_httpx_target(raw_target)
             if cleaned and _is_valid_domain(cleaned):
                 live.append(cleaned)
         live = list(dict.fromkeys(live))
@@ -388,6 +406,12 @@ def _run_httpx(
             if error_msg:
                 logger.warning("HTTPX failed: %s", error_msg)
                 return set(), False
+
+        if result.stdout.strip() and not live:
+            logger.warning(
+                "HTTPX returned output, but no targets survived normalization. Sample: %s",
+                result.stdout.splitlines()[:3],
+            )
 
         return set(live), True
 

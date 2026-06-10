@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useRef, useCallback } from 'react';
+import { normalizeRole } from '../utils/roleAccess';
 
 export const AuthContext = createContext();
 
@@ -8,8 +9,34 @@ const API = '';
 // Refresh token lives in localStorage — survives page reload, expires in 4 hours.
 const REFRESH_INTERVAL_MS = 25 * 60 * 1000; // refresh access token every 25 min
 
+function decodeJwtPayload(token) {
+  try {
+    if (!token || typeof token !== 'string' || token.split('.').length < 2) {
+      return null;
+    }
+    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const padded = payload.padEnd(payload.length + ((4 - (payload.length % 4)) % 4), '=');
+    const decoded = atob(padded);
+    return JSON.parse(decoded);
+  } catch {
+    return null;
+  }
+}
+
+function buildUserFromToken(token) {
+  const payload = decodeJwtPayload(token);
+  if (!payload) {
+    return null;
+  }
+  return {
+    email: payload.sub || payload.email || '',
+    role: normalizeRole(payload.role),
+  };
+}
+
 export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isReady, setIsReady] = useState(false); // true after initial refresh attempt
   const refreshTimer = useRef(null);
 
@@ -30,11 +57,13 @@ export function AuthProvider({ children }) {
         // Refresh token expired or invalid — clear everything
         localStorage.removeItem('refresh_token');
         setAccessToken(null);
+        setCurrentUser(null);
         setIsReady(true);
         return false;
       }
       const data = await res.json();
       setAccessToken(data.access_token);
+      setCurrentUser(buildUserFromToken(data.access_token));
       // Rotate: save new refresh token
       localStorage.setItem('refresh_token', data.refresh_token);
       setIsReady(true);
@@ -54,12 +83,18 @@ export function AuthProvider({ children }) {
   /** Called immediately after login / 2FA verify — stores both tokens. */
   const login = useCallback((newAccessToken, newRefreshToken) => {
     setAccessToken(newAccessToken);
-    localStorage.setItem('refresh_token', newRefreshToken);
+    setCurrentUser(buildUserFromToken(newAccessToken));
+    if (newRefreshToken) {
+      localStorage.setItem('refresh_token', newRefreshToken);
+    } else {
+      localStorage.removeItem('refresh_token');
+    }
     scheduleRefresh();
   }, [scheduleRefresh]);
 
   const logout = useCallback(() => {
     setAccessToken(null);
+    setCurrentUser(null);
     localStorage.removeItem('refresh_token');
     if (refreshTimer.current) clearInterval(refreshTimer.current);
   }, []);
@@ -77,6 +112,8 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       token: accessToken,        // short-lived access token (in memory)
+      user: currentUser,
+      role: currentUser?.role || null,
       login,
       logout,
       silentRefresh,

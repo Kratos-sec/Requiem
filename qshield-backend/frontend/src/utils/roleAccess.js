@@ -1,20 +1,20 @@
 /**
- * Role-Based Access Control — single source of truth.
+ * Role-based access control for the frontend.
  *
  * Roles:
- *  admin   → full access to everything
- *  viewer  → read-only (PNB Checker) — can see but cannot act
- *  auditor → viewer + Reports (can download reports)
- *  itadmin → viewer + Vulnerability Scan + Settings + Scan trigger
+ * - admin: full access
+ * - viewer: read-only access to core scan pages
+ * - auditor: viewer + reports
+ * - itadmin: viewer + operational controls
  */
 
-// Feature keys map 1-to-1 with sidebar nav paths / features
 const ROLE_PERMISSIONS = {
   admin: [
     'dashboard',
     'assets',
     'asset-inventory',
     'security',
+    'monitoring',
     'vulnerability-scan',
     'cbom',
     'cyber-rating',
@@ -22,7 +22,7 @@ const ROLE_PERMISSIONS = {
     'reports',
     'settings',
     'threat-surface',
-    'scan',        // scan trigger button
+    'scan',
   ],
   viewer: [
     'dashboard',
@@ -42,7 +42,7 @@ const ROLE_PERMISSIONS = {
     'cbom',
     'cyber-rating',
     'analytics',
-    'reports',     // auditor can view & download reports
+    'reports',
     'threat-surface',
   ],
   itadmin: [
@@ -50,39 +50,110 @@ const ROLE_PERMISSIONS = {
     'assets',
     'asset-inventory',
     'security',
-    'vulnerability-scan',  // IT Admin can run vulnerability scans
+    'monitoring',
+    'vulnerability-scan',
     'cbom',
     'cyber-rating',
     'analytics',
-    'settings',            // IT Admin can access settings
+    'settings',
     'threat-surface',
-    'scan',                // scan trigger button
+    'scan',
   ],
 };
 
-/**
- * Returns true if the given role has access to the given feature.
- * Defaults to viewer behaviour for unknown/null roles.
- * @param {string|null|undefined} role
- * @param {string} feature
- * @returns {boolean}
- */
+const ROUTE_PERMISSIONS = {
+  '/': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/assets': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/asset-inventory': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/security': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/monitoring': ['admin', 'itadmin'],
+  '/vulnerability-scan': ['admin', 'itadmin'],
+  '/threat-surface': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/cbom': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/cyber-rating': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/analytics': ['admin', 'viewer', 'auditor', 'itadmin'],
+  '/reports': ['admin', 'auditor'],
+  '/settings': ['admin', 'itadmin'],
+};
+
+const ROUTE_FEATURE_MAP = {
+  '/': 'dashboard',
+  '/assets': 'assets',
+  '/asset-inventory': 'asset-inventory',
+  '/security': 'security',
+  '/monitoring': 'monitoring',
+  '/vulnerability-scan': 'vulnerability-scan',
+  '/threat-surface': 'threat-surface',
+  '/cbom': 'cbom',
+  '/cyber-rating': 'cyber-rating',
+  '/analytics': 'analytics',
+  '/reports': 'reports',
+  '/settings': 'settings',
+};
+
+const ROLE_LABELS = {
+  admin: 'Administrator',
+  viewer: 'PNB Checker',
+  auditor: 'Compliance Auditor',
+  itadmin: 'IT Administrator',
+};
+
+const DEFAULT_ROLE = 'viewer';
+
+export function normalizeRole(role) {
+  return role && ROLE_PERMISSIONS[role] ? role : DEFAULT_ROLE;
+}
+
 export function canAccess(role, feature) {
-  const normalizedRole = role && ROLE_PERMISSIONS[role] ? role : 'viewer';
+  const normalizedRole = normalizeRole(role);
   return ROLE_PERMISSIONS[normalizedRole].includes(feature);
 }
 
-/**
- * Returns a human-readable label for a role value.
- */
-export function getRoleLabel(role) {
-  const labels = {
-    admin: 'Administrator',
-    viewer: 'PNB Checker',
-    auditor: 'Compliance Auditor',
-    itadmin: 'IT Administrator',
-  };
-  return labels[role] || role || 'Unknown';
+export function canAccessRoute(role, path) {
+  const normalizedRole = normalizeRole(role);
+  const allowedRoles = ROUTE_PERMISSIONS[path];
+
+  if (!allowedRoles) {
+    return normalizedRole === 'admin';
+  }
+
+  return allowedRoles.includes(normalizedRole);
 }
 
-export { ROLE_PERMISSIONS };
+export function getAccessibleRoutes(role) {
+  const normalizedRole = normalizeRole(role);
+  return Object.entries(ROUTE_PERMISSIONS)
+    .filter(([, allowedRoles]) => allowedRoles.includes(normalizedRole))
+    .map(([path]) => path);
+}
+
+export function getFirstAuthorizedRoute(role) {
+  const normalizedRole = normalizeRole(role);
+  const preferredOrder = [
+    '/',
+    '/assets',
+    '/asset-inventory',
+    '/security',
+    '/monitoring',
+    '/vulnerability-scan',
+    '/threat-surface',
+    '/cbom',
+    '/cyber-rating',
+    '/analytics',
+    '/reports',
+    '/settings',
+  ];
+
+  return preferredOrder.find((path) => canAccessRoute(normalizedRole, path)) || '/';
+}
+
+export function getRouteFeature(path) {
+  return ROUTE_FEATURE_MAP[path] || null;
+}
+
+export function getRoleLabel(role) {
+  const normalizedRole = normalizeRole(role);
+  return ROLE_LABELS[normalizedRole] || role || 'Unknown';
+}
+
+export { ROLE_PERMISSIONS, ROUTE_PERMISSIONS, ROUTE_FEATURE_MAP, ROLE_LABELS };

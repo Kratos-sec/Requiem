@@ -48,7 +48,7 @@ from backend.app.services.cert_analysis import get_certificate_expiry
 from backend.app.services.security_headers import check_security_headers
 from backend.app.services.schedule_store import add_schedule, load_schedules, update_schedule_status
 from backend.app.services.threat_surface import scan_threat_surface
-from backend.app.services.scan_context import build_scan_context, load_scan_context, call_local_gemini, call_nvidia_llm
+from backend.app.services.scan_context import build_scan_context, load_scan_context, build_ai_context, call_local_gemini, call_nvidia_llm
 
 # Initialize DB tables on startup
 Base.metadata.create_all(bind=engine)
@@ -75,39 +75,50 @@ def _run_migrations():
         if 'role' not in existing:
             conn.execute(text("ALTER TABLE users ADD COLUMN role VARCHAR NOT NULL DEFAULT 'viewer'"))
             conn.commit()
+        if 'token_version' not in existing:
+            conn.execute(text("ALTER TABLE users ADD COLUMN token_version INTEGER NOT NULL DEFAULT 0"))
+            conn.commit()
 
 
 _run_migrations()
 
 
-ADMIN_SEEDS = [
-    ("admin2@gmail.com", "Admin#2026"),
-    ("admin3@gmail.com", "Admin#2026"),
+DEMO_ACCOUNTS = [
+    {"email": "admin@requiem.local", "password": "Admin#2026", "role": "admin"},
+    {"email": "viewer@requiem.local", "password": "Viewer#2026", "role": "viewer"},
+    {"email": "auditor@requiem.local", "password": "Auditor#2026", "role": "auditor"},
+    {"email": "itadmin@requiem.local", "password": "Itadmin#2026", "role": "itadmin"},
 ]
 
 
-def _seed_admin_accounts():
+def _seed_demo_accounts():
     from sqlalchemy import text
 
     with engine.connect() as conn:
-        for email, password in ADMIN_SEEDS:
+        for account in DEMO_ACCOUNTS:
+            email = account["email"]
+            password = account["password"]
+            role = account["role"]
             existing = conn.execute(text("SELECT role FROM users WHERE email = :email"), {"email": email}).first()
             hashed = get_password_hash(password)
             if existing is None:
                 conn.execute(
                     text(
                         "INSERT INTO users (email, hashed_password, role, totp_enabled) "
-                        "VALUES (:email, :hashed, 'admin', 0)"
+                        "VALUES (:email, :hashed, :role, 0)"
                     ),
-                    {"email": email, "hashed": hashed},
+                    {"email": email, "hashed": hashed, "role": role},
                 )
                 conn.commit()
-            elif existing[0] != "admin":
-                conn.execute(text("UPDATE users SET role = 'admin', hashed_password = :hashed WHERE email = :email"), {"email": email, "hashed": hashed})
+            elif existing[0] != role:
+                conn.execute(
+                    text("UPDATE users SET role = :role, hashed_password = :hashed, totp_enabled = 0, totp_secret = NULL WHERE email = :email"),
+                    {"email": email, "hashed": hashed, "role": role},
+                )
                 conn.commit()
 
 
-_seed_admin_accounts()
+_seed_demo_accounts()
 
 logger = logging.getLogger(__name__)
 
@@ -501,10 +512,13 @@ async def ai_chat(req: AiChatRequest):
     if not query:
         raise HTTPException(status_code=422, detail="Query is required")
 
-    context = load_scan_context()
+    context = build_ai_context(load_scan_context())
+    context_json = json.dumps(context, indent=2, ensure_ascii=False)
+    logger.info("AI context size chars=%d", len(context_json))
     prompt = (
-        "Scan Data:\n"
-        f"{json.dumps(context, indent=2)}\n\n"
+        "You are answering questions about a security scan.\n"
+        "Use the compact scan data below. If a detail is not present, say so clearly instead of inventing it.\n\n"
+        f"Scan Data:\n{context_json}\n\n"
         f"User Question: {query}"
     )
 
@@ -556,6 +570,25 @@ current_scan = {
         "last_update": None,
     },
 }
+
+
+def _stop_scan_process(process: subprocess.Popen | None) -> bool:
+    if not process or process.poll() is not None:
+        return False
+
+    try:
+        process.terminate()
+        try:
+            process.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            try:
+                process.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                pass
+        return True
+    except Exception:
+        return False
 
 
 def map_certificate_ui(status: str) -> dict:
@@ -1325,6 +1358,8 @@ def run_nuclei_scan(request: NucleiRequest):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         current_scan["process"] = process
     except FileNotFoundError:
@@ -1337,6 +1372,7 @@ def run_nuclei_scan(request: NucleiRequest):
     if process.stdout:
         for line in process.stdout:
             if not current_scan["running"]:
+                _stop_scan_process(process)
                 break
             line = line.strip()
             if not line:
@@ -1435,9 +1471,9 @@ def stop_nuclei_scan():
         current_scan["process"] = None
         return {"success": False, "message": "No scan running"}
     try:
-        process.terminate()
+        stopped = _stop_scan_process(process)
         current_scan["running"] = False
-        return {"success": True, "message": "Scan stopped"}
+        return {"success": stopped, "message": "Scan stopped" if stopped else "Stop signal sent, but process may still be cleaning up"}
     finally:
         current_scan["process"] = None
 

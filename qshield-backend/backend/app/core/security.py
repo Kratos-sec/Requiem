@@ -36,6 +36,16 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
+def decode_access_token(token: str) -> dict | None:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        if payload.get("type") == "2fa_pending":
+            return None
+        return payload
+    except jwt.PyJWTError:
+        return None
+
+
 def create_temp_token(email: str) -> str:
     """Short-lived JWT issued after password check when 2FA is required.
     Has a special 'type' claim so it cannot be used as a real access token.

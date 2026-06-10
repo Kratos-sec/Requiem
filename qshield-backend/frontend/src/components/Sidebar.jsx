@@ -1,21 +1,27 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { canAccess, getRoleLabel } from '../utils/roleAccess';
 
 const navItems = [
-  { path: '/', icon: 'dashboard', label: 'Dashboard' },
-  { path: '/assets', icon: 'inventory_2', label: 'Assets' },
-  { path: '/asset-inventory', icon: 'account_tree', label: 'Asset Inventory' },
-  { path: '/vulnerability-scan', icon: 'bug_report', label: 'Vulnerability Scan' },
-  { path: '/cbom', icon: 'inventory', label: 'CBOM' },
-  { path: '/cyber-rating', icon: 'grade', label: 'Cyber Rating' },
-  { path: '/analytics', icon: 'policy', label: 'Posture of PQC' },
-  { path: '/reports', icon: 'description', label: 'Reports', fill: true },
+  { path: '/', icon: 'dashboard', label: 'Dashboard', feature: 'dashboard' },
+  { path: '/assets', icon: 'inventory_2', label: 'Assets', feature: 'assets' },
+  { path: '/asset-inventory', icon: 'account_tree', label: 'Asset Inventory', feature: 'asset-inventory' },
+  { path: '/security', icon: 'shield', label: 'Security', feature: 'security' },
+  { path: '/monitoring', icon: 'sensors', label: 'Monitoring', feature: 'monitoring' },
+  { path: '/vulnerability-scan', icon: 'bug_report', label: 'Vulnerability Scan', feature: 'vulnerability-scan' },
+  { path: '/threat-surface', icon: 'radar', label: 'Threat Surface', feature: 'threat-surface' },
+  { path: '/cbom', icon: 'inventory', label: 'CBOM', feature: 'cbom' },
+  { path: '/cyber-rating', icon: 'grade', label: 'Cyber Rating', feature: 'cyber-rating' },
+  { path: '/analytics', icon: 'policy', label: 'Posture of PQC', feature: 'analytics' },
+  { path: '/reports', icon: 'description', label: 'Reports', fill: true, feature: 'reports' },
 ];
 
 export default function Sidebar() {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const visibleNavItems = navItems.filter((item) => canAccess(user?.role, item.feature));
 
   const handleLogout = () => {
     logout();
@@ -124,7 +130,7 @@ export default function Sidebar() {
 
       {/* Nav items */}
       <nav className="relative z-10 flex-1 overflow-y-auto space-y-0 scrollbar-none">
-        {navItems.map((item) => (
+        {visibleNavItems.map((item) => (
           <NavItem key={item.path} item={item} />
         ))}
       </nav>
@@ -138,9 +144,11 @@ export default function Sidebar() {
       </div>
 
       {/* Settings */}
-      <div className="relative z-10">
-        <NavItem item={{ path: '/settings', icon: 'settings', label: 'Settings' }} />
-      </div>
+      {canAccess(user?.role, 'settings') && (
+        <div className="relative z-10">
+          <NavItem item={{ path: '/settings', icon: 'settings', label: 'Settings', feature: 'settings' }} />
+        </div>
+      )}
 
       {/* Logout */}
       <div className="relative z-10 px-5 pt-3 pb-6">
@@ -163,6 +171,17 @@ export default function Sidebar() {
           <span className="material-symbols-outlined text-[16px] transition-transform duration-200 group-hover:translate-x-0.5">logout</span>
           Logout
         </button>
+      </div>
+
+      <div className="relative z-10 px-5 pb-5">
+        <div
+          className="rounded-2xl px-4 py-3 text-white/80 text-[11px] leading-tight"
+          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          <p className="font-bold uppercase tracking-[0.18em] text-white/45 mb-1">Signed in as</p>
+          <p className="font-semibold text-white truncate">{user?.email || 'Unknown user'}</p>
+          <p className="text-white/60 mt-1">{getRoleLabel(user?.role)}</p>
+        </div>
       </div>
 
       {/* Bottom edge highlight */}

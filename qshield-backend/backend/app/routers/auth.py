@@ -5,9 +5,11 @@ from datetime import timedelta
 import pyotp
 import qrcode
 import qrcode.image.svg
+from sqlalchemy import func, inspect as sa_inspect
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from pydantic import BaseModel, EmailStr
 
 import jwt
 
@@ -25,6 +27,7 @@ from backend.app.core.security import (
     get_password_hash,
     verify_password,
     create_access_token,
+    decode_access_token,
     create_temp_token,
     decode_temp_token,
     ACCESS_TOKEN_EXPIRE_MINUTES,
@@ -47,9 +50,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        # Reject temp (2fa_pending) tokens from being used as real tokens
-        if payload.get("type") == "2fa_pending":
+        payload = decode_access_token(token)
+        if not payload:
             raise credentials_exception
         email: str = payload.get("sub")
         if email is None:
@@ -59,6 +61,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
     user = db.query(User).filter(User.email == email).first()
     if user is None:
+        raise credentials_exception
+    if payload.get("token_version", 0) != user.token_version:
         raise credentials_exception
     return user
 
@@ -116,7 +120,7 @@ def login_for_access_token(
 
     # No 2FA → issue the real JWT immediately
     access_token = create_access_token(
-        data={"sub": user.email, "role": user.role},
+        data={"sub": user.email, "role": user.role, "token_version": user.token_version},
         expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     )
     return LoginWithTOTPResponse(access_token=access_token, token_type="bearer", requires_2fa=False)
@@ -242,7 +246,7 @@ def verify_2fa_login(
         )
 
     access_token = create_access_token(
-        data={"sub": user.email, "role": user.role},
+        data={"sub": user.email, "role": user.role, "token_version": user.token_version},
         expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     )
     return LoginWithTOTPResponse(access_token=access_token, token_type="bearer", requires_2fa=False)
@@ -279,3 +283,159 @@ def disable_2fa(
     db.commit()
 
     return {"message": "Two-factor authentication has been disabled."}
+
+
+class UpdateEmailRequest(BaseModel):
+    new_email: EmailStr
+    password: str
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+
+class AdminUserOut(BaseModel):
+    id: int
+    email: str
+    role: str
+    totp_enabled: bool = False
+    token_version: int = 0
+
+    class Config:
+        from_attributes = True
+
+
+class AdminRoleUpdateRequest(BaseModel):
+    role: str
+
+
+def _require_admin(current_user: User) -> None:
+    if current_user.role != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required.")
+
+
+@router.put("/me/email", response_model=UserOut)
+def update_email(
+    req: UpdateEmailRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not verify_password(req.password, current_user.hashed_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Current password is incorrect.")
+
+    existing = db.query(User).filter(User.email == req.new_email, User.id != current_user.id).first()
+    if existing:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="That email is already in use.")
+
+    current_user.email = req.new_email
+    current_user.token_version += 1
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+
+@router.put("/me/password")
+def change_password(
+    req: ChangePasswordRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not verify_password(req.current_password, current_user.hashed_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Current password is incorrect.")
+
+    current_user.hashed_password = get_password_hash(req.new_password)
+    current_user.token_version += 1
+    db.commit()
+    return {"message": "Password updated successfully. Please log in again."}
+
+
+@router.post("/me/logout-all")
+def logout_all_sessions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    current_user.token_version += 1
+    db.commit()
+    return {"message": "All sessions have been logged out."}
+
+
+@router.get("/admin/users", response_model=list[AdminUserOut])
+def list_users(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    _require_admin(current_user)
+    return db.query(User).order_by(User.id.asc()).all()
+
+
+@router.put("/admin/users/{user_id}/role", response_model=AdminUserOut)
+def update_user_role(
+    user_id: int,
+    req: AdminRoleUpdateRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    _require_admin(current_user)
+    if req.role not in {"admin", "viewer", "auditor", "itadmin"}:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid role.")
+
+    target = db.query(User).filter(User.id == user_id).first()
+    if not target:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found.")
+    if target.id == current_user.id and req.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="You cannot remove your own admin role while logged in.",
+        )
+    if target.role == "admin" and req.role != "admin":
+        admin_count = db.query(func.count(User.id)).filter(User.role == "admin").scalar() or 0
+        if admin_count <= 1:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="At least one admin must remain in the system.",
+            )
+
+    target.role = req.role
+    target.token_version += 1
+    db.commit()
+    db.refresh(target)
+    return target
+
+
+@router.delete("/admin/users/{user_id}")
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    _require_admin(current_user)
+    target = db.query(User).filter(User.id == user_id).first()
+    if not target:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found.")
+    if target.id == current_user.id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You cannot delete your own account.")
+
+    db.delete(target)
+    db.commit()
+    return {"message": "User deleted successfully."}
+
+
+@router.get("/admin/database")
+def database_overview(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    _require_admin(current_user)
+    inspector = sa_inspect(db.bind)
+    tables = inspector.get_table_names()
+    user_count = db.query(func.count(User.id)).scalar() or 0
+    role_counts = {
+        role: db.query(func.count(User.id)).filter(User.role == role).scalar() or 0
+        for role in ["admin", "viewer", "auditor", "itadmin"]
+    }
+    return {
+        "tables": tables,
+        "users": user_count,
+        "roles": role_counts,
+    }

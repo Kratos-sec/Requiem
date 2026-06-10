@@ -1,9 +1,11 @@
 import { useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { canAccessRoute } from '../utils/roleAccess';
 
 export default function ProtectedRoute() {
-  const { isAuthenticated, isReady } = useContext(AuthContext);
+  const { isAuthenticated, isReady, user } = useContext(AuthContext);
+  const location = useLocation();
 
   // Wait for the initial silent-refresh attempt before deciding to redirect.
   // Without this, a page reload would always kick the user to /login
@@ -18,6 +20,10 @@ export default function ProtectedRoute() {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (!canAccessRoute(user?.role, location.pathname)) {
+    return <Navigate to="/unauthorized" replace state={{ from: location.pathname }} />;
   }
 
   return <Outlet />;

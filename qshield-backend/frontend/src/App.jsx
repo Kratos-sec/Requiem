@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Assets from './pages/Assets';
@@ -12,10 +12,30 @@ import Settings from './pages/Settings';
 import VulnerabilityScan from './pages/VulnerabilityScan';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Unauthorized from './pages/Unauthorized';
 import CBOM from './pages/CBOM';
 import CyberRating from './pages/CyberRating';
 import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './context/AuthContext';
+import { AuthContext, AuthProvider } from './context/AuthContext';
+import { getFirstAuthorizedRoute } from './utils/roleAccess';
+
+function PublicRoute({ children }) {
+  const { isAuthenticated, isReady, user } = useContext(AuthContext);
+
+  if (!isReady) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#fdf9f2]">
+        <span className="material-symbols-outlined animate-spin text-4xl text-primary">autorenew</span>
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={getFirstAuthorizedRoute(user?.role)} replace />;
+  }
+
+  return children;
+}
 
 export default function App() {
   const [scanData, setScanData] = useState(null);
@@ -90,7 +110,7 @@ export default function App() {
 
   const stopScan = async () => {
     try {
-      await fetch('/stop-scan', { method: 'POST' });
+      await fetch('http://localhost:8000/stop-scan', { method: 'POST' });
     } catch (err) {
       console.error('Failed to stop scan:', err);
     } finally {
@@ -103,8 +123,9 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route element={<ProtectedRoute />}>
             <Route
