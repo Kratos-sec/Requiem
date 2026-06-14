@@ -39,6 +39,7 @@ def build_scan_context(
     threat_surface: list[dict[str, Any]] | None = None,
     vulnerabilities: list[dict[str, Any]] | None = None,
     cbom: list[dict[str, Any]] | None = None,
+    compliance: dict[str, Any] | None = None,
     summary: dict[str, Any] | None = None,
     domain: str | None = None,
 ) -> dict[str, Any]:
@@ -53,6 +54,8 @@ def build_scan_context(
         context["vulnerabilities"] = vulnerabilities
     if cbom is not None:
         context["cbom"] = cbom
+    if compliance is not None:
+        context["compliance"] = compliance
     if summary is not None:
         context["summary"] = summary
     save_scan_context(context)
@@ -114,6 +117,7 @@ def build_ai_context(context: dict[str, Any], *, max_assets: int = 12, max_cbom:
     cbom = context.get("cbom") or []
     threat_surface = context.get("threat_surface") or []
     vulnerabilities = context.get("vulnerabilities") or []
+    compliance = context.get("compliance") or {}
 
     compact_assets: list[dict[str, Any]] = []
     ranked_assets = sorted(
@@ -213,6 +217,13 @@ def build_ai_context(context: dict[str, Any], *, max_assets: int = 12, max_cbom:
         "cbom_sample": compact_cbom,
         "threat_surface_sample": compact_threats,
         "vulnerabilities_sample": compact_vulnerabilities,
+        "compliance_summary": {
+            "total_affected_findings": compliance.get("total_affected_findings", 0),
+            "framework_counts": compliance.get("framework_counts", {}),
+            "high_confidence_matches": compliance.get("high_confidence_matches", 0),
+        }
+        if compliance
+        else {},
     }
 
     return compact_context

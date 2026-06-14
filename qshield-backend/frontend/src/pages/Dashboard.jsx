@@ -44,7 +44,7 @@ export default function Dashboard({ scanData, isLoading, error }) {
   const sourceAssets = Array.isArray(scanData.cbom) && scanData.cbom.length ? scanData.cbom : (scanData.assets || []);
 
   const totalAssets = sourceAssets.length;
-  const highRisk = sourceAssets.filter((a) => ['high', 'critical'].includes((a.risk_level || '').toLowerCase())).length || summary?.high_risk_assets || 0;
+  const highRisk = sourceAssets.filter((a) => (a.risk_level || '').toLowerCase() === 'high').length || summary?.high_risk_assets || 0;
   const expiringSoon = summary?.expiring_soon || 0;
   
   const apis = sourceAssets.filter((asset) => (asset.type || '').toLowerCase() === 'api').length;

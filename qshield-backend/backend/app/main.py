@@ -49,6 +49,7 @@ from backend.app.services.security_headers import check_security_headers
 from backend.app.services.schedule_store import add_schedule, load_schedules, update_schedule_status
 from backend.app.services.threat_surface import scan_threat_surface
 from backend.app.services.scan_context import build_scan_context, load_scan_context, build_ai_context, call_local_gemini, call_nvidia_llm
+from backend.app.services.compliance_mapping import map_compliance
 
 # Initialize DB tables on startup
 Base.metadata.create_all(bind=engine)
@@ -104,15 +105,18 @@ def _seed_demo_accounts():
             if existing is None:
                 conn.execute(
                     text(
-                        "INSERT INTO users (email, hashed_password, role, totp_enabled) "
-                        "VALUES (:email, :hashed, :role, 0)"
+                        "INSERT INTO users (email, hashed_password, role, totp_enabled, token_version) "
+                        "VALUES (:email, :hashed, :role, 0, 0)"
                     ),
                     {"email": email, "hashed": hashed, "role": role},
                 )
                 conn.commit()
-            elif existing[0] != role:
+            else:
                 conn.execute(
-                    text("UPDATE users SET role = :role, hashed_password = :hashed, totp_enabled = 0, totp_secret = NULL WHERE email = :email"),
+                    text(
+                        "UPDATE users SET role = :role, hashed_password = :hashed, totp_enabled = 0, totp_secret = NULL, token_version = 0 "
+                        "WHERE email = :email"
+                    ),
                     {"email": email, "hashed": hashed, "role": role},
                 )
                 conn.commit()
@@ -931,6 +935,7 @@ def scan_domain(request: ScanRequest):
             entry.update(map_tls_ui(entry.get("key_strength"), entry.get("tls_version")))
             entry.update(map_quantum_ui(entry.get("quantum_vulnerable")))
             entry.update(map_header_ui(entry))
+        compliance = map_compliance(cbom)
         rating_data = calculate_rating(cbom)
 
         outdated_services_count = sum(1 for entry in cbom if entry.get("outdated_services"))
@@ -1082,6 +1087,7 @@ def scan_domain(request: ScanRequest):
             "insights": insights,
             "assets": assets,
             "cbom": cbom,
+            "compliance": compliance,
         }
 
         if request.use_crtsh:
@@ -1093,6 +1099,7 @@ def scan_domain(request: ScanRequest):
             assets=assets,
             cbom=cbom,
             summary=response.get("summary") or {},
+            compliance=compliance,
         )
 
         return response

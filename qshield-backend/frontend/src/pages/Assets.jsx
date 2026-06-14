@@ -44,12 +44,55 @@ const getExpiryTone = (status) => {
   return 'text-gray-600 bg-gray-100';
 };
 
-const getCertRiskTone = (risk) => {
-  const normalized = (risk || '').toLowerCase();
-  if (normalized === 'high') return 'text-red-700 bg-red-50';
-  if (normalized === 'medium') return 'text-amber-700 bg-amber-50';
-  if (normalized === 'low') return 'text-green-700 bg-green-50';
-  return 'text-gray-600 bg-gray-100';
+const getCertificateExpiryStatus = (asset) => {
+  const certificate = asset?.certificate || {};
+  const expiryDays = certificate?.expiry_days ?? asset?.days_remaining;
+  if (typeof expiryDays === 'number') {
+    if (expiryDays <= 0) return 'Expired';
+    if (expiryDays <= 30) return 'Expiring Soon';
+    return 'Valid';
+  }
+
+  const expiryDate = certificate?.expiry_date || asset?.expiry_date;
+  if (expiryDate) {
+    const parsed = Date.parse(expiryDate);
+    if (!Number.isNaN(parsed)) {
+      const days = Math.floor((parsed - Date.now()) / (1000 * 60 * 60 * 24));
+      if (days <= 0) return 'Expired';
+      if (days <= 30) return 'Expiring Soon';
+      return 'Valid';
+    }
+  }
+
+  return null;
+};
+
+const normalizeText = (value) => String(value || '').trim().toLowerCase();
+
+const deriveRiskLevel = (asset) => {
+  const tls = normalizeText(asset?.tls_version);
+  const cipher = normalizeText(asset?.cipher);
+  const keySize = String(asset?.key_size || '').trim();
+
+  if (tls === 'not supported' || cipher === 'none') return 'High';
+  if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Low';
+  if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'High';
+
+  return asset?.risk_level || 'Medium';
+};
+
+const deriveQuantumState = (asset) => {
+  const tls = normalizeText(asset?.tls_version);
+  const cipher = normalizeText(asset?.cipher);
+  const keySize = String(asset?.key_size || '').trim();
+
+  if (tls === 'not supported' || cipher === 'none') return 'Vulnerable';
+  if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Safe';
+  if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'Vulnerable';
+
+  if (asset?.quantum_vulnerable === true) return 'Vulnerable';
+  if (asset?.quantum_vulnerable === false) return 'Safe';
+  return 'Unknown';
 };
 
 export default function Assets({ scanData, isLoading, error }) {
@@ -108,10 +151,6 @@ export default function Assets({ scanData, isLoading, error }) {
       issuer: asset?.issuer ?? enrichment?.issuer,
       expiry_date: asset?.expiry_date ?? enrichment?.expiry_date,
       days_remaining: asset?.days_remaining ?? enrichment?.days_remaining,
-      cert_count: asset?.cert_count ?? enrichment?.cert_count,
-      san_count: asset?.san_count ?? enrichment?.san_count,
-      expiry_status: asset?.expiry_status ?? enrichment?.expiry_status,
-      cert_risk: asset?.cert_risk ?? enrichment?.cert_risk,
       cert_valid_from: asset?.cert_valid_from ?? enrichment?.cert_valid_from,
       cert_valid_to: asset?.cert_valid_to ?? enrichment?.cert_valid_to,
       type: getMappedType(asset?.type || 'Unknown'),
@@ -144,7 +183,7 @@ export default function Assets({ scanData, isLoading, error }) {
 
       let matchRisk = true;
       if (riskFilter !== 'All') {
-        const risk = (asset.risk_level || 'Unknown').toLowerCase();
+        const risk = deriveRiskLevel(asset).toLowerCase();
         matchRisk = risk === riskFilter.toLowerCase();
       }
 
@@ -253,9 +292,6 @@ export default function Assets({ scanData, isLoading, error }) {
                 <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Key</th>
                 <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Issuer CA</th>
                 <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Expiry</th>
-                <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">SANs</th>
-                <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Cert History</th>
-                <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Cert Risk</th>
                 <th className="p-4 text-[11px] font-bold tracking-[0.1em] text-[#721c24] uppercase whitespace-nowrap bg-transparent">Risk</th>
               </tr>
             </thead>
@@ -268,7 +304,8 @@ export default function Assets({ scanData, isLoading, error }) {
                   else if (asset.tls_label === 'Weak') cipherColor = 'text-red-700 bg-red-50';
 
                   const typeClass = getTypeColorClass(asset.type);
-                  const isApi = (asset.type || '').toLowerCase() === 'api';
+                  const displayRisk = deriveRiskLevel(asset);
+                  const quantumState = deriveQuantumState(asset);
 
                   return (
                     <tr key={i} className="hover:bg-black/[0.02] transition-colors">
@@ -322,41 +359,26 @@ export default function Assets({ scanData, isLoading, error }) {
                       </td>
                       <td
                         className="p-4 text-[13px] font-medium text-gray-700 whitespace-nowrap"
-                        title={asset.issuer ? `Issuer: ${asset.issuer}\nValid from: ${asset.cert_valid_from || '--'}\nValid to: ${asset.cert_valid_to || '--'}` : ''}
+                        title={asset.issuer ? `Issuer: ${asset.issuer}\nValid from: ${asset.cert_valid_from || asset.certificate?.valid_from || '--'}\nValid to: ${asset.cert_valid_to || asset.certificate?.valid_to || '--'}` : ''}
                       >
-                        {asset.expiry_status ? (
-                          <span className={`px-2 py-0.5 rounded text-[12px] font-bold ${getExpiryTone(asset.expiry_status)}`}>
-                            {asset.expiry_status}
+                        {getCertificateExpiryStatus(asset) ? (
+                          <span className={`px-2 py-0.5 rounded text-[12px] font-bold ${getExpiryTone(getCertificateExpiryStatus(asset))}`}>
+                            {getCertificateExpiryStatus(asset)}
                           </span>
                         ) : (
                           <span className="text-gray-300">--</span>
                         )}
-                        {asset.expiry_date ? (
-                          <div className="text-[11px] text-gray-500 mt-1">{asset.expiry_date}</div>
+                        {(asset.expiry_date || asset.certificate?.expiry_date) ? (
+                          <div className="text-[11px] text-gray-500 mt-1">{asset.expiry_date || asset.certificate?.expiry_date}</div>
                         ) : null}
                       </td>
-                      <td className="p-4 text-[14px] font-bold text-gray-700 whitespace-nowrap">
-                        {typeof asset.san_count === 'number' ? asset.san_count : <span className="text-gray-300">--</span>}
-                      </td>
-                      <td className="p-4 text-[14px] font-bold text-gray-700 whitespace-nowrap">
-                        {typeof asset.cert_count === 'number' ? asset.cert_count : <span className="text-gray-300">--</span>}
-                      </td>
                       <td className="p-4 text-[14px] whitespace-nowrap">
-                        {asset.cert_risk ? (
-                          <span className={`px-2 py-0.5 rounded text-[12px] font-bold ${getCertRiskTone(asset.cert_risk)}`}>
-                            {asset.cert_risk}
-                          </span>
-                        ) : (
-                          <span className="text-gray-300">--</span>
-                        )}
-                      </td>
-                      <td className="p-4 text-[14px] whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-bold rounded-full ${asset.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
-                          asset.risk_level === 'Medium' || asset.risk_level === 'Moderate' ? 'bg-secondary-container text-on-secondary-container bg-[#fbf5e6] text-[#b07d12]' :
-                            asset.risk_level === 'High' || asset.risk_level === 'Critical' ? 'bg-error-container text-on-error-container bg-red-100 text-red-800' :
+                        <span className={`px-2 inline-flex text-xs leading-5 font-bold rounded-full ${displayRisk === 'Low' ? 'bg-green-100 text-green-800' :
+                          displayRisk === 'Medium' || displayRisk === 'Moderate' ? 'bg-secondary-container text-on-secondary-container bg-[#fbf5e6] text-[#b07d12]' :
+                            displayRisk === 'High' || displayRisk === 'Critical' ? 'bg-error-container text-on-error-container bg-red-100 text-red-800' :
                               'bg-gray-100 text-gray-800'
                           }`}>
-                          {asset.risk_level || 'Unknown'}
+                          {displayRisk}
                         </span>
                       </td>
                     </tr>
@@ -364,7 +386,7 @@ export default function Assets({ scanData, isLoading, error }) {
                 })
               ) : (
                 <tr>
-                  <td colSpan="14" className="p-12 text-center">
+                  <td colSpan="11" className="p-12 text-center">
                     <span className="material-symbols-outlined text-4xl text-gray-300 mb-2">search_off</span>
                     <p className="text-gray-500 font-medium">No assets matching your filters</p>
                   </td>

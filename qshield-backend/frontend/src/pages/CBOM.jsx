@@ -41,6 +41,34 @@ const strengthLabel = (s) => {
   return 'Unknown';
 };
 
+const normalizeText = (value) => String(value || '').trim().toLowerCase();
+
+const deriveRiskLevel = (asset) => {
+  const tls = normalizeText(asset?.tls_version);
+  const cipher = normalizeText(asset?.cipher);
+  const keySize = String(asset?.key_size || '').trim();
+
+  if (tls === 'not supported' || cipher === 'none') return 'High';
+  if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Low';
+  if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'High';
+
+  return asset?.risk_level || 'Medium';
+};
+
+const deriveQuantumState = (asset) => {
+  const tls = normalizeText(asset?.tls_version);
+  const cipher = normalizeText(asset?.cipher);
+  const keySize = String(asset?.key_size || '').trim();
+
+  if (tls === 'not supported' || cipher === 'none') return 'Vulnerable';
+  if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Safe';
+  if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'Vulnerable';
+
+  if (asset?.quantum_vulnerable === true) return 'Vulnerable';
+  if (asset?.quantum_vulnerable === false) return 'Safe';
+  return 'Unknown';
+};
+
 const tlsColor = (v) => {
   if (!v || v === 'Unknown' || v === 'Not Supported') return 'text-red-600';
   if (v === 'TLSv1.3') return 'text-green-700';
@@ -145,9 +173,12 @@ export default function CBOM({ scanData, isLoading, error }) {
   const weakCount = cbom.filter(a => (a.key_strength || '').toUpperCase() === 'WEAK').length;
   const certIssues = cbom.filter(a => ['EXPIRED', 'WARNING', 'CRITICAL', 'NO_TLS', 'NO_CERT'].includes((a.certificate_status || '').toUpperCase())).length;
   const apiCount = cbom.filter(a => (a.type || '').toLowerCase() === 'api').length;
-  const quantumVulnCount = cbom.filter(a => a.quantum_vulnerable === true).length;
+  const quantumVulnCount = cbom.filter(a => deriveQuantumState(a) === 'Vulnerable').length;
   const outdatedCount = cbom.filter(a => a.outdated_services).length;
-  const highRiskCount = cbom.filter(a => a.risk_level === 'High').length;
+  const highRiskCount = cbom.filter(a => {
+    const level = deriveRiskLevel(a);
+    return level === 'High' || level === 'Critical';
+  }).length;
   const httpsCount = cbom.filter(a => a.ports?.['443']).length;
 
   /* ── Key Length Distribution ── */
@@ -438,17 +469,19 @@ export default function CBOM({ scanData, isLoading, error }) {
                 const type = getMappedType(asset.type);
                 const strength = strengthLabel(asset.key_strength);
                 const ca = asset.certificate?.issuer_ca || asset.issuer || 'Other';
-                const caShort = ca.length > 14 ? ca.slice(0, 14) + '…' : ca;
+                const caShort = ca.length > 14 ? ca.slice(0, 14) + '...' : ca;
+                const riskLevel = deriveRiskLevel(asset);
+                const quantumState = deriveQuantumState(asset);
                 return (
                   <tr key={i} className="hover:bg-black/[0.02] transition-colors">
                     <td className="px-4 py-3 text-[12px] font-bold text-blue-700 whitespace-nowrap max-w-[160px] truncate" title={asset.domain}>
-                      {asset.domain || '—'}
+                      {asset.domain || '-'}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${typeColor(type)}`}>{type}</span>
                     </td>
                     <td className="px-4 py-3 text-[11px] font-bold text-blue-700 whitespace-nowrap">
-                      {asset.key_size ? `${asset.key_size}-Bit` : <span className="text-gray-400">—</span>}
+                      {asset.key_size ? `${asset.key_size}-Bit` : <span className="text-gray-400">-</span>}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap ${strengthColor(asset.key_strength)}`}>{strength}</span>
@@ -464,17 +497,17 @@ export default function CBOM({ scanData, isLoading, error }) {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
-                        asset.risk_level === 'High' ? 'bg-red-100 text-red-800' :
-                        asset.risk_level === 'Medium' ? 'bg-[#fbf5e6] text-[#b07d12]' :
+                        riskLevel === 'High' || riskLevel === 'Critical' ? 'bg-red-100 text-red-800' :
+                        riskLevel === 'Medium' || riskLevel === 'Moderate' ? 'bg-[#fbf5e6] text-[#b07d12]' :
                         'bg-green-100 text-green-800'
-                      }`}>{asset.risk_level || 'Unknown'}</span>
+                      }`}>{riskLevel || 'Unknown'}</span>
                     </td>
                     <td className="px-4 py-3">
-                      {asset.quantum_vulnerable === true
+                      {quantumState === 'Vulnerable'
                         ? <span className="text-red-600 text-[11px] font-bold">Vulnerable</span>
-                        : asset.quantum_vulnerable === false
+                        : quantumState === 'Safe'
                           ? <span className="text-green-700 text-[11px] font-bold">Safe</span>
-                          : <span className="text-gray-400 text-[11px]">—</span>
+                          : <span className="text-gray-400 text-[11px]">-</span>
                       }
                     </td>
                   </tr>

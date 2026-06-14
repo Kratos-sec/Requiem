@@ -4,8 +4,6 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Assets from './pages/Assets';
 import AssetInventory from './pages/AssetInventory';
-import Monitoring from './pages/Monitoring';
-import Security from './pages/Security';
 import Analytics from './pages/Analytics';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
@@ -143,10 +141,7 @@ export default function App() {
               <Route index element={<Dashboard scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="assets" element={<Assets scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="asset-inventory" element={<AssetInventory scanData={scanData} isLoading={isLoading} error={error} />} />
-              <Route path="monitoring" element={<Monitoring scanData={scanData} isLoading={isLoading} error={error} />} />
-              <Route path="security" element={<Security scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="vulnerability-scan" element={<VulnerabilityScan scanData={scanData} isLoading={isLoading} error={error} setNucleiResults={setNucleiResults} />} />
-              <Route path="threat-surface" element={<VulnerabilityScan scanData={scanData} isLoading={isLoading} error={error} setNucleiResults={setNucleiResults} defaultTab="threat-surface" />} />
               <Route path="analytics" element={<Analytics scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="reports" element={<Reports scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="cbom" element={<CBOM scanData={scanData} isLoading={isLoading} error={error} />} />

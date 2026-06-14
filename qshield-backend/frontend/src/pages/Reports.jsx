@@ -39,9 +39,34 @@ export default function Reports({ scanData, isLoading, error }) {
   }
 
   const { summary, insights, cbom, inventory, counts } = scanData;
+  const assets = Array.isArray(scanData.cbom) && scanData.cbom.length > 0 ? scanData.cbom : (scanData.assets || []);
   const activeAssets = summary?.total_assets || 0;
   const httpOnlyCount = summary?.http_only || 0;
-  const pqcRiskLevel = scanData?.risk || 'Low';
+  const normalizeText = (value) => String(value || '').trim().toLowerCase();
+  const pqcRiskLevel = normalizeText(scanData?.risk);
+  const pqcDisplayRisk = pqcRiskLevel === 'high' || pqcRiskLevel === 'critical'
+    ? 'Critical'
+    : pqcRiskLevel === 'medium' || pqcRiskLevel === 'vulnerable'
+      ? 'At Risk'
+      : 'Secure';
+  const hasUnencryptedTls = assets.some((asset) => {
+    const tls = normalizeText(asset?.tls_version);
+    const cipher = normalizeText(asset?.cipher);
+    return tls === 'not supported' || cipher === 'none';
+  });
+  const hasQuantumVuln = assets.some((asset) => asset?.quantum_vulnerable === true || normalizeText(asset?.risk_level) === 'high');
+  const transitioning = Math.max(0, activeAssets - (summary?.quantum_safe || 0) - (summary?.high_risk_assets || 0));
+  const reportInsights = [
+    hasUnencryptedTls
+      ? 'TLS enforcement gaps are present and should be remediated immediately.'
+      : 'All scanned assets currently meet TLS 1.2+ requirements.',
+    hasQuantumVuln
+      ? 'Quantum-vulnerable assets remain in the environment.'
+      : 'No quantum-vulnerable assets were flagged in the current scan.',
+    transitioning > 0
+      ? `${transitioning} assets are still transitioning and need modernization planning.`
+      : 'No assets are currently in a transition state.',
+  ];
 
   return (
     <div className="grid grid-cols-12 gap-8 auto-rows-min">
@@ -146,7 +171,7 @@ export default function Reports({ scanData, isLoading, error }) {
           </div>
           <span className="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Live Feed</span>
         </div>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-1">
             <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60">Scanned Assets</span>
             <div className="text-4xl font-black text-primary">{counts?.domains || 0}</div>
@@ -170,6 +195,15 @@ export default function Reports({ scanData, isLoading, error }) {
               <span className="material-symbols-outlined text-sm">{summary?.high_risk_assets > 0 ? 'warning' : 'gpp_good'}</span> {summary?.high_risk_assets > 0 ? 'Action Required' : 'All Clear'}
             </div>
           </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant/60">Transitioning Assets</span>
+            <div className={`text-4xl font-black ${transitioning > 0 ? 'text-secondary' : 'text-green-600'}`}>
+              {transitioning}
+            </div>
+            <div className={`flex items-center gap-1 text-xs font-bold ${transitioning > 0 ? 'text-secondary' : 'text-green-600'}`}>
+              <span className="material-symbols-outlined text-sm">{transitioning > 0 ? 'sync_alt' : 'check_circle'}</span> {transitioning > 0 ? 'Modernize' : 'Balanced'}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -186,17 +220,17 @@ export default function Reports({ scanData, isLoading, error }) {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className={`w-3 h-3 rounded-full shadow-lg ${httpOnlyCount > 0 ? 'bg-secondary shadow-secondary/30' : 'bg-green-500 shadow-green-500/30'}`}></span>
+              <span className={`w-3 h-3 rounded-full shadow-lg ${hasUnencryptedTls ? 'bg-error shadow-error/30' : 'bg-green-500 shadow-green-500/30'}`}></span>
               <span className="font-medium text-sm">HTTPS Enforcement</span>
             </div>
-            <span className="text-xs font-bold text-on-surface-variant uppercase">{httpOnlyCount > 0 ? 'Warning' : 'Good'}</span>
+            <span className="text-xs font-bold text-on-surface-variant uppercase">{hasUnencryptedTls ? 'At Risk' : 'Good'}</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className={`w-3 h-3 rounded-full shadow-lg ${pqcRiskLevel === 'High' ? 'bg-error shadow-error/30' : pqcRiskLevel === 'Medium' ? 'bg-secondary shadow-secondary/30' : 'bg-green-500 shadow-green-500/30'}`}></span>
+              <span className={`w-3 h-3 rounded-full shadow-lg ${pqcDisplayRisk === 'Critical' ? 'bg-error shadow-error/30' : pqcDisplayRisk === 'At Risk' ? 'bg-secondary shadow-secondary/30' : 'bg-green-500 shadow-green-500/30'}`}></span>
               <span className="font-medium text-sm">Encryption Modules (PQC)</span>
             </div>
-            <span className="text-xs font-bold text-on-surface-variant uppercase">{pqcRiskLevel}</span>
+            <span className="text-xs font-bold text-on-surface-variant uppercase">{pqcDisplayRisk}</span>
           </div>
           <div className="pt-4 mt-2 border-t border-outline-variant/20">
             <button className="text-xs font-bold text-secondary uppercase hover:underline">Full Diagnostic</button>
@@ -261,8 +295,8 @@ export default function Reports({ scanData, isLoading, error }) {
       <section className="col-span-12 lg:col-span-4 glass-card rounded-lg p-8 shadow-2xl shadow-[#1d1b19]/5 row-span-1 lg:row-span-1">
         <h3 className="font-headline text-lg font-bold text-on-surface mb-6">Key Insights</h3>
         <div className="space-y-4 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
-          {insights && insights.length > 0 ? (
-            insights.map((insight, idx) => (
+          {reportInsights && reportInsights.length > 0 ? (
+            reportInsights.map((insight, idx) => (
               <div key={idx} className="relative pl-6 pb-6 border-l-2 border-outline-variant/30 last:pb-0">
                 <div className="absolute -left-[7px] top-0 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface"></div>
                 <h4 className="text-sm font-bold mt-1">Platform Insight</h4>

@@ -7,6 +7,16 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Le
 export default function Analytics({ scanData, isLoading, error }) {
   const [selectedAsset, setSelectedAsset] = useState(null);
 
+  const normalizeText = (value) => String(value || '').trim().toLowerCase();
+  const getDisplayRisk = (asset) => {
+    const tls = normalizeText(asset?.tls_version);
+    const cipher = normalizeText(asset?.cipher);
+    if (tls === 'not supported' || cipher === 'none' || tls === 'unknown' || cipher === 'unknown') {
+      return 'High';
+    }
+    return asset?.risk_level || 'Medium';
+  };
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh]">
@@ -52,12 +62,39 @@ export default function Analytics({ scanData, isLoading, error }) {
   const legacyPct = Math.round((legacy / total) * 100) || 0;
   const criticalPct = Math.round((critical / total) * 100) || 0;
 
-  const recommendations = (scanData.insights && scanData.insights.length > 0) ? scanData.insights : [
-    "Upgrade to TLS 1.3 with PQC",
-    "Implement Kyber for Key Exchange",
-    "Update Cryptographic Libraries",
-    "Develop PQC Migration Plan"
-  ];
+  const recommendations = (() => {
+    const assetList = Array.isArray(assets) ? assets : [];
+    const hasNoTls = assetList.some((asset) => {
+      const tls = normalizeText(asset?.tls_version);
+      const cipher = normalizeText(asset?.cipher);
+      return tls === 'not supported' || cipher === 'none';
+    });
+    const hasQuantumVuln = assetList.some((asset) => asset?.quantum_vulnerable === true || normalizeText(asset?.risk_level) === 'high');
+    const hasLegacyCrypto = assetList.some((asset) => {
+      const keySize = normalizeText(asset?.key_size);
+      const algorithm = normalizeText(asset?.algorithm || asset?.certificate_algo);
+      return keySize === '1024-bit' || keySize === '2048-bit' || algorithm.includes('sha-1') || algorithm.includes('md5');
+    });
+
+    const items = [];
+    items.push(
+      hasNoTls
+        ? { title: 'Some assets do not support TLS and need immediate remediation.', severity: 'High', icon: 'security' }
+        : { title: 'All scanned assets currently meet TLS 1.2+ requirements.', severity: 'Low', icon: 'verified' },
+    );
+    items.push(
+      hasQuantumVuln
+        ? { title: 'Some assets remain quantum vulnerable and need PQC migration planning.', severity: 'High', icon: 'memory' }
+        : { title: 'No quantum vulnerable assets were flagged in the latest scan.', severity: 'Low', icon: 'check_circle' },
+    );
+    items.push(
+      hasLegacyCrypto
+        ? { title: 'Legacy cryptographic algorithms are still present in the inventory.', severity: 'Medium', icon: 'key' }
+        : { title: 'No obvious legacy cryptographic algorithms were detected.', severity: 'Low', icon: 'verified' },
+    );
+
+    return items;
+  })();
 
   const barOptions = {
     responsive: true, maintainAspectRatio: false,
@@ -93,6 +130,7 @@ export default function Analytics({ scanData, isLoading, error }) {
   };
 
   const activeApp = selectedAsset || (assets.length > 0 ? assets[0] : null);
+  const activeAppRisk = getDisplayRisk(activeApp);
 
   return (
     <div className="grid grid-cols-12 gap-5 auto-rows-min">
@@ -211,10 +249,10 @@ export default function Analytics({ scanData, isLoading, error }) {
               <div className="bg-surface-container-low p-3 md:p-4 rounded-xl border border-outline-variant/20 flex flex-col justify-center col-span-2">
                  <div className="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider mb-1.5 opacity-80">Risk</div>
                  <div className={`text-base font-bold capitalize ${
-                   ((activeApp.risk_level || '').toLowerCase() === 'high' || (activeApp.risk_level || '').toLowerCase() === 'critical') ? 'text-[#ef4444]' : 
-                   ((activeApp.risk_level || '').toLowerCase() === 'medium' || (activeApp.risk_level || '').toLowerCase() === 'moderate') ? 'text-[#eab308]' : 
+                   activeAppRisk === 'High' ? 'text-[#ef4444]' :
+                   activeAppRisk === 'Medium' ? 'text-[#eab308]' :
                    'text-[#4ade80]'
-                 }`}>{activeApp.risk_level || 'Moderate'}</div>
+                 }`}>{activeAppRisk}</div>
               </div>
             </div>
           </div>
@@ -229,11 +267,12 @@ export default function Analytics({ scanData, isLoading, error }) {
         <div className="overflow-y-auto pr-2 space-y-3 custom-scrollbar flex-1">
           {recommendations.slice(0,5).map((rec, i) => {
              const title = typeof rec === 'string' ? rec : rec.title;
-             const isHigh = title.toLowerCase().includes('tls') || title.toLowerCase().includes('kyber') || title.toLowerCase().includes('upgrade');
+             const severity = typeof rec === 'string' ? 'Medium' : rec.severity;
+             const isHigh = severity === 'High';
              return (
                <div key={i} className={`p-4 rounded-xl flex items-start gap-4 border ${isHigh ? 'bg-[#ef4444]/5 border-[#ef4444]/20' : 'bg-surface-variant/30 border-outline-variant/20'}`}>
                  <span className={`material-symbols-outlined mt-0.5 text-[20px] ${isHigh ? 'text-[#ef4444]' : 'text-[#eab308]'}`}>
-                   {title.toLowerCase().includes('kyber') ? 'key' : title.toLowerCase().includes('upgrade') ? 'security' : 'build'}
+                   {typeof rec === 'object' && rec.icon ? rec.icon : 'build'}
                  </span>
                  <div>
                    <div className="text-sm font-bold text-on-surface leading-tight">{title}</div>

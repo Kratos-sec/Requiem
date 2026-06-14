@@ -46,6 +46,7 @@ export default function ExecutiveReporting({ scanData }) {
   }
 
   const { summary, insights, cbom, inventory, counts } = scanData;
+  const assets = Array.isArray(scanData.cbom) && scanData.cbom.length > 0 ? scanData.cbom : (scanData.assets || []);
   const totalAssets = summary?.total_assets || 0;
   const quantumSafe = summary?.quantum_safe || 0;
   const highRisk = summary?.high_risk_assets || 0;
@@ -55,6 +56,26 @@ export default function ExecutiveReporting({ scanData }) {
   const riskLevel = scanData?.risk || 'Low';
   const classicalSec = scanData?.classical_security || 'N/A';
   const quantumSec = scanData?.quantum_security || 'N/A';
+
+  const normalizeText = (value) => String(value || '').trim().toLowerCase();
+  const hasUnencryptedTls = assets.some((asset) => {
+    const tls = normalizeText(asset?.tls_version);
+    const cipher = normalizeText(asset?.cipher);
+    return tls === 'not supported' || cipher === 'none';
+  });
+  const hasQuantumVuln = assets.some((asset) => asset?.quantum_vulnerable === true || normalizeText(asset?.risk_level) === 'high');
+  const transitioning = Math.max(0, totalAssets - quantumSafe - highRisk);
+  const boardInsights = [
+    hasUnencryptedTls
+      ? 'TLS enforcement gaps are present. At least one asset does not support TLS and should be prioritized.'
+      : 'All scanned assets currently meet TLS 1.2+ requirements.',
+    hasQuantumVuln
+      ? 'Quantum-vulnerable assets are still present and should remain on the migration plan.'
+      : 'No quantum-vulnerable assets were flagged in the current scan.',
+    transitioning > 0
+      ? `${transitioning} assets are transitioning between posture states and need modernization planning.`
+      : 'No assets are currently in a transition state.',
+  ];
 
   // CBOM stats
   let cbomList = [];
@@ -70,10 +91,10 @@ export default function ExecutiveReporting({ scanData }) {
 
   // Threat findings for the summary table
   const threats = [
-    { category: 'HTTP-Only Endpoints', count: httpOnly, severity: httpOnly > 3 ? 'High' : httpOnly > 0 ? 'Medium' : 'Low', icon: 'http' },
-    { category: 'High Risk Assets', count: highRisk, severity: highRisk > 5 ? 'High' : highRisk > 0 ? 'Medium' : 'Low', icon: 'warning' },
-    { category: 'Quantum Vulnerable Ciphers', count: qVuln, severity: qVuln > 5 ? 'High' : qVuln > 0 ? 'Medium' : 'Low', icon: 'lock_open' },
-    { category: 'Open Ports Detected', count: inventory?.ports?.length || 0, severity: (inventory?.ports?.length || 0) > 10 ? 'High' : (inventory?.ports?.length || 0) > 0 ? 'Medium' : 'Low', icon: 'router' },
+    { category: 'HTTP-Only Endpoints', count: httpOnly, severity: httpOnly > 0 ? 'High' : 'Low', icon: 'http' },
+    { category: 'High Risk Assets', count: highRisk, severity: highRisk > 0 ? 'High' : 'Low', icon: 'warning' },
+    { category: 'Quantum Vulnerable Ciphers', count: qVuln, severity: qVuln > 0 ? 'High' : 'Low', icon: 'lock_open' },
+    { category: 'Transitioning Assets', count: transitioning, severity: transitioning > 0 ? 'Medium' : 'Low', icon: 'sync_alt' },
   ];
 
   const generatePDF = () => {
@@ -139,6 +160,7 @@ export default function ExecutiveReporting({ scanData }) {
         ['TOTAL ASSETS', `${totalAssets}`],
         ['QUANTUM SAFE', `${quantumSafe}`],
         ['HIGH RISK', `${highRisk}`],
+        ['TRANSITIONING', `${transitioning}`],
         ['CYBER SCORE', `${score}/1000`],
       ];
       kpis.forEach(([lbl, val], i) => {
@@ -170,7 +192,7 @@ export default function ExecutiveReporting({ scanData }) {
       doc.roundedRect(35, barY + 4, Math.max((score / 1000) * (pw - 55), 8), 8, 4, 4, 'F');
       doc.setFontSize(10);
       doc.setTextColor(...bc);
-      doc.text(`${score} / 1000 — Rating Segment: ${rating}`, 35, barY + 20);
+      doc.text(`${score} / 1000 - Rating Segment: ${rating}`, 35, barY + 20);
 
       // Threat table
       autoTable(doc, {
@@ -189,14 +211,14 @@ export default function ExecutiveReporting({ scanData }) {
       });
 
       // Insights
-      if (insights && insights.length > 0) {
+      if (boardInsights && boardInsights.length > 0) {
         let iy = doc.lastAutoTable.finalY + 10;
         doc.setFontSize(12);
         doc.setTextColor(50, 50, 50);
         doc.setFont('helvetica', 'bold');
         doc.text('Key Insights for Board Review', 35, iy);
         iy += 6;
-        insights.slice(0, 5).forEach(ins => {
+        boardInsights.slice(0, 5).forEach(ins => {
           doc.setFillColor(229, 160, 62);
           doc.rect(35, iy, 2, 7, 'F');
           doc.setFontSize(9);
@@ -219,7 +241,7 @@ export default function ExecutiveReporting({ scanData }) {
         doc.setFontSize(8);
         doc.setTextColor(120, 120, 120);
         doc.setFont('helvetica', 'normal');
-        doc.text('REQUIEM | PNB — CONFIDENTIAL', 20, ph - 8);
+        doc.text('REQUIEM | PNB - CONFIDENTIAL', 20, ph - 8);
         doc.text(`Page ${i - 1} of ${pages - 1}`, pw - 20, ph - 8, { align: 'right' });
       }
 
@@ -262,7 +284,7 @@ export default function ExecutiveReporting({ scanData }) {
           ) : (
             <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
           )}
-          {exporting ? 'Generating…' : exported ? 'Report Saved!' : 'Export PDF'}
+          {exporting ? 'Generating...' : exported ? 'Report Saved!' : 'Export PDF'}
         </button>
       </div>
 
@@ -396,14 +418,14 @@ export default function ExecutiveReporting({ scanData }) {
       </div>
 
       {/* Key Insights */}
-      {insights && insights.length > 0 && (
+      {boardInsights && boardInsights.length > 0 && (
         <div className="glass-card rounded-2xl p-6 border border-outline-variant/20 shadow-md">
           <h3 className="text-sm font-black uppercase tracking-[0.15em] text-on-surface mb-4 flex items-center gap-2">
             <span className="material-symbols-outlined text-secondary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
             Board-Level Insights
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {insights.slice(0, 6).map((ins, i) => (
+            {boardInsights.slice(0, 6).map((ins, i) => (
               <div key={i} className="flex gap-3 p-3 rounded-xl bg-surface-container-low border border-outline-variant/15">
                 <span className="shrink-0 w-5 h-5 rounded-full bg-secondary/15 flex items-center justify-center">
                   <span className="text-secondary text-[10px] font-black">{i + 1}</span>

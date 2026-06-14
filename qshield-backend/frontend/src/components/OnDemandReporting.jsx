@@ -373,10 +373,11 @@ export default function OnDemandReporting({ scanData }) {
 
             const pRisk = scanData.risk?.toString() || 'Unknown';
             doc.setFontSize(16);
-            if (pRisk === 'High Risk' || pRisk === 'High') doc.setTextColor(220, 53, 69);
-            else if (pRisk === 'Vulnerable' || pRisk === 'Medium') doc.setTextColor(229, 160, 62);
+            const displayRisk = pRisk === 'High' || pRisk === 'High Risk' ? 'Critical' : pRisk === 'Medium' || pRisk === 'Vulnerable' ? 'At Risk' : 'Secure';
+            if (displayRisk === 'Critical') doc.setTextColor(220, 53, 69);
+            else if (displayRisk === 'At Risk') doc.setTextColor(229, 160, 62);
             else doc.setTextColor(40, 167, 69);
-            doc.text(`${pRisk} Profile`, 25, startY + 25);
+            doc.text(`${displayRisk} Profile`, 25, startY + 25);
 
             const body = [
               ['Classical Security Standard', scanData.classical_security?.toString() || 'Unknown'],
