@@ -67,7 +67,7 @@ export default function OnDemandReporting({ scanData }) {
 
       // --- Title Page ---
       // Background Accent -> A stylish vertical stripe on the left edge
-      doc.setFillColor(181, 10, 46); // PNB Red (#B50A2E)
+      doc.setFillColor(181, 10, 46); // GDG Red (#B50A2E)
       doc.rect(0, 0, 15, pageHeight, 'F'); // Left vertical edge full height
 
       doc.setFillColor(229, 160, 62); // Gold accent
@@ -82,7 +82,7 @@ export default function OnDemandReporting({ scanData }) {
       doc.setFontSize(16);
       doc.setTextColor(229, 160, 62); // Gold
       doc.setFont('helvetica', 'normal');
-      doc.text("PUNJAB NATIONAL BANK", 35, 95);
+      doc.text("HACK2SKILL", 35, 95);
 
       doc.setDrawColor(200, 200, 200);
       doc.setLineWidth(0.5);
@@ -144,7 +144,7 @@ export default function OnDemandReporting({ scanData }) {
 
           // Header
           doc.setFontSize(22);
-          doc.setTextColor(250, 188, 10); // PNB Gold
+          doc.setTextColor(250, 188, 10); // GDG Gold
           doc.setFont('helvetica', 'bold');
 
           const titleText = `REQUIEM - ${title}`;
@@ -465,14 +465,14 @@ export default function OnDemandReporting({ scanData }) {
       const pageCount = doc.internal.getNumberOfPages();
       for (let i = 2; i <= pageCount; i++) {
         doc.setPage(i);
-        doc.setDrawColor(250, 188, 10); // PNB Gold
+        doc.setDrawColor(250, 188, 10); // GDG Gold
         doc.setLineWidth(0.5);
         doc.line(14, pageHeight - 15, pageWidth - 14, pageHeight - 15);
 
         doc.setFontSize(8);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(100, 100, 100);
-        doc.text("REQUIEM | PNB", 14, pageHeight - 10);
+        doc.text("REQUIEM | HACK2SKILL", 14, pageHeight - 10);
 
         doc.text(`Page ${i - 1}`, pageWidth - 14, pageHeight - 10, { align: 'right' });
       }

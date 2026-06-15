@@ -77,7 +77,7 @@ const ROUTE_FEATURE_MAP = {
 
 const ROLE_LABELS = {
   admin: 'Administrator',
-  viewer: 'PNB Checker',
+  viewer: 'Hack2Skill Checker',
   auditor: 'Compliance Auditor',
   itadmin: 'IT Administrator',
 };

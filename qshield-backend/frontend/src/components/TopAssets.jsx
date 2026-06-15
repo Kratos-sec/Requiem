@@ -39,13 +39,27 @@ const formatExpiryLabel = (item) => {
   return parsed.toLocaleDateString();
 };
 
+const normalizeText = (value) => String(value || '').trim().toLowerCase();
+
+const deriveRiskLevel = (asset) => {
+  const tls = normalizeText(asset?.tls_version);
+  const cipher = normalizeText(asset?.cipher);
+  const keySize = String(asset?.key_size || '').trim();
+
+  if (tls === 'not supported' || cipher === 'none') return 'High';
+  if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Low';
+  if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'High';
+
+  return asset?.risk_level || 'Low';
+};
+
 export default function TopAssets({ data }) {
   if (!data?.cbom) return null;
 
   const assets = [...data.cbom];
   assets.sort((a, b) => {
-    const riskA = riskOrder[a.risk_level] ?? 3;
-    const riskB = riskOrder[b.risk_level] ?? 3;
+    const riskA = riskOrder[deriveRiskLevel(a)] ?? 3;
+    const riskB = riskOrder[deriveRiskLevel(b)] ?? 3;
     if (riskA !== riskB) return riskA - riskB;
     const daysA = getExpiryDays(a);
     const daysB = getExpiryDays(b);
@@ -100,13 +114,14 @@ export default function TopAssets({ data }) {
             <tbody className="bg-surface">
               {topAssets.map((asset) => {
                 const expiryLabel = formatExpiryLabel(asset);
-                const riskBadge = riskBadges[asset.risk_level] || riskBadges.Low;
+                const displayRisk = deriveRiskLevel(asset);
+                const riskBadge = riskBadges[displayRisk] || riskBadges.Low;
                 return (
                   <tr key={asset.domain} className="hover:bg-surface-variant/20 transition-colors">
                     <td className="px-3 py-2 text-[11px] text-on-surface font-semibold">{asset.domain}</td>
                     <td className="px-3 py-2">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold ${riskBadge}`}>
-                        {asset.risk_level || 'Low'}
+                        {displayRisk}
                       </span>
                     </td>
                     <td className="px-3 py-2">{renderCertStatus(asset)}</td>

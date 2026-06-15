@@ -118,7 +118,7 @@ export default function ExecutiveReporting({ scanData }) {
       doc.setFontSize(14);
       doc.setTextColor(229, 160, 62);
       doc.setFont('helvetica', 'normal');
-      doc.text('PUNJAB NATIONAL BANK', 35, 88);
+      doc.text('HACK2SKILL', 35, 88);
 
       doc.setDrawColor(200, 200, 200);
       doc.setLineWidth(0.5);
@@ -241,7 +241,7 @@ export default function ExecutiveReporting({ scanData }) {
         doc.setFontSize(8);
         doc.setTextColor(120, 120, 120);
         doc.setFont('helvetica', 'normal');
-        doc.text('REQUIEM | PNB - CONFIDENTIAL', 20, ph - 8);
+        doc.text('REQUIEM | HACK2SKILL - CONFIDENTIAL', 20, ph - 8);
         doc.text(`Page ${i - 1} of ${pages - 1}`, pw - 20, ph - 8, { align: 'right' });
       }
 

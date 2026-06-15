@@ -1,12 +1,5 @@
-export default function Recommendations({ insights }) {
-  if (!insights || !insights.length) return null;
-
-  const recommendations = insights
-    .slice(0, 4)
-    .map((insight) => {
-      const text = insight.replace('All assets ', '');
-      return text.endsWith('.') ? text : `${text}.`;
-    });
+export default function Recommendations({ items }) {
+  if (!items || !items.length) return null;
 
   return (
     <section
@@ -21,10 +14,15 @@ export default function Recommendations({ insights }) {
         <span className="text-xs font-bold text-secondary uppercase tracking-[0.25em]">Action</span>
       </div>
       <ul className="space-y-2">
-        {recommendations.map((rec, index) => (
+        {items.slice(0, 5).map((rec, index) => (
           <li key={index} className="flex gap-2 text-[11px] text-on-surface leading-tight">
-            <span className="text-secondary">✓</span>
-            <span>{rec}</span>
+            <span className={`mt-0.5 ${rec.severity === 'High' ? 'text-error' : 'text-secondary'}`}>✓</span>
+            <div>
+              <div>{rec.title}</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-on-surface-variant mt-0.5">
+                {rec.severity} Priority
+              </div>
+            </div>
           </li>
         ))}
       </ul>

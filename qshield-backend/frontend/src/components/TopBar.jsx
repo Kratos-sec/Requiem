@@ -168,7 +168,7 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Scan a domain  e.g. pnb.co.in…"
+            placeholder="Scan a domain  e.g. hack2skill.com…"
             aria-invalid={Boolean(inputError)}
             disabled={!canRunScan}
             className="w-full pl-11 pr-40 py-2.5 text-sm font-medium outline-none transition-all duration-200"

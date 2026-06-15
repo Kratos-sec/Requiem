@@ -6,9 +6,13 @@ from typing import Any
 COMPLIANCE_RULES: dict[str, dict[str, Any]] = {
     "rsa_weak_key": {
         "keywords": ["RSA"],
-        "match": lambda item: _int_value(item.get("key_size")) and _int_value(item.get("key_size")) < 2048,
+        "match": lambda item: (
+            _contains_any(item, ("algorithm_type", "certificate_algo", "algorithm"), ("RSA",))
+            and _int_value(item.get("key_size")) is not None
+            and _int_value(item.get("key_size")) <= 2048
+        ),
         "frameworks": ["NIST_PQC", "ISO_27001", "GDPR"],
-        "reason": "Weak RSA key sizes reduce cryptographic strength and may fail modern protection expectations.",
+        "reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations.",
         "severity_hint": "high",
     },
     "sha1": {

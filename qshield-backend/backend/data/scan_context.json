@@ -1,99 +1,29 @@
 {
-  "domain": "vupune.ac.in",
+  "domain": "hack2skill.com",
   "assets": [
     {
-      "domain": "icaio.vupune.ac.in",
-      "ip": "13.205.24.1",
+      "domain": "referral.hack2skill.com",
+      "ip": "185.199.109.153",
       "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "onlineadmissionapi.vupune.ac.in",
-      "ip": "15.207.217.242",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "vunet.vupune.ac.in",
-      "ip": "13.205.24.1",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "testingicaio.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
       "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "learner.vupune.ac.in",
-      "ip": "18.172.64.26",
-      "is_live": true,
-      "live_httpx": true,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "Amazon CloudFront httpd",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
-          "service": "https",
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
           "product": "",
           "version": "",
           "outdated": false
@@ -102,44 +32,58 @@
       "type": "web"
     },
     {
-      "domain": "erpadmin.vupune.ac.in",
-      "ip": "13.205.53.99",
+      "domain": "test.hack2skill.com",
+      "ip": "76.76.21.21",
       "is_live": true,
-      "live_httpx": true,
+      "live_httpx": false,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
           "version": "",
           "outdated": false
         }
       ],
-      "type": "web"
+      "type": "api"
     },
     {
-      "domain": "onlineadmission.vupune.ac.in",
-      "ip": "108.159.80.100",
+      "domain": "h2stc.hack2skill.com",
+      "ip": "185.199.109.153",
       "is_live": true,
-      "live_httpx": true,
+      "live_httpx": false,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "Amazon CloudFront httpd",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
-          "service": "https",
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
           "product": "",
           "version": "",
           "outdated": false
@@ -148,191 +92,28 @@
       "type": "web"
     },
     {
-      "domain": "vupune.ac.in",
-      "ip": "3.109.41.211",
+      "domain": "billamama.hack2skill.com",
+      "ip": "185.199.109.153",
       "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "incon-ctlvu.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "research.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "admission.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "erp.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
       "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "convo.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
-      "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "iqube.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "testingiqube.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
-      "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "careers.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
-      "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "vulj.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
-          "port": 443,
+          "port": 8080,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "vuerp.vupune.ac.in",
-      "ip": "18.239.111.69",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "Amazon CloudFront httpd",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "https",
           "product": "",
           "version": "",
           "outdated": false
@@ -341,30 +122,7 @@
       "type": "web"
     },
     {
-      "domain": "icsiaiml.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "is_live": true,
-      "live_httpx": true,
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "type": "web"
-    },
-    {
-      "domain": "phdadmission.vupune.ac.in",
+      "domain": "pilot.hack2skill.com",
       "ip": null,
       "is_live": false,
       "live_httpx": false,
@@ -372,30 +130,22 @@
       "type": "server"
     },
     {
-      "domain": "event.vupune.ac.in",
-      "ip": null,
-      "is_live": false,
-      "live_httpx": false,
-      "services": [],
-      "type": "server"
-    },
-    {
-      "domain": "jstir.vupune.ac.in",
-      "ip": "13.205.24.1",
+      "domain": "ai.hack2skill.com",
+      "ip": "34.131.123.164",
       "is_live": true,
-      "live_httpx": true,
+      "live_httpx": false,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         }
@@ -403,22 +153,805 @@
       "type": "web"
     },
     {
-      "domain": "icrcsd.vupune.ac.in",
-      "ip": "13.126.185.221",
+      "domain": "assessments.hack2skill.com",
+      "ip": "76.76.21.21",
       "is_live": true,
-      "live_httpx": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "testing.hack2skill.com",
+      "ip": null,
+      "is_live": false,
+      "live_httpx": false,
+      "services": [],
+      "type": "server"
+    },
+    {
+      "domain": "isro.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "vision.hack2skill.com",
+      "ip": "35.193.169.183",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "hawkeye.hack2skill.com",
+      "ip": "35.232.225.147",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "vision-backend-staging.hack2skill.com",
+      "ip": "13.235.231.244",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "hello.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "swagstore.hack2skill.com",
+      "ip": "34.70.148.250",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "backend-api-senior.hack2skill.com",
+      "ip": "35.244.23.164",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "api"
+    },
+    {
+      "domain": "conference.hack2skill.com",
+      "ip": "13.50.198.210",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "community.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "gdsc-india.hack2skill.com",
+      "ip": "76.76.21.164",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "api"
+    },
+    {
+      "domain": "googleindiasummit.hack2skill.com",
+      "ip": "34.47.128.177",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "pay.hack2skill.com",
+      "ip": "100.49.110.141",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "fellows.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "backend-api.hack2skill.com",
+      "ip": "34.47.135.158",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "api"
+    },
+    {
+      "domain": "no-reply.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "fwtrack.hack2skill.com",
+      "ip": "65.2.193.168",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "frontend-api.hack2skill.com",
+      "ip": "13.200.78.74",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "blog.hack2skill.com",
+      "ip": "76.76.21.21",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "api"
+    },
+    {
+      "domain": "hack2skill.com",
+      "ip": "35.190.6.179",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "developmentsih.hack2skill.com",
+      "ip": "34.47.133.67",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "sih.hack2skill.com",
+      "ip": "34.100.155.175",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "alphavision.hack2skill.com",
+      "ip": "34.117.20.246",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "sih-staging.hack2skill.com",
+      "ip": "34.47.133.67",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "docs.hack2skill.com",
+      "ip": "172.64.147.209",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "api"
+    },
+    {
+      "domain": "certificate.hack2skill.com",
+      "ip": "136.119.84.178",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "spaceappsnoida.hack2skill.com",
+      "ip": "185.199.109.153",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "type": "web"
+    },
+    {
+      "domain": "developmentvision.hack2skill.com",
+      "ip": "34.49.198.155",
+      "is_live": true,
+      "live_httpx": false,
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
           "version": "",
           "outdated": false
         }
@@ -428,7 +961,7 @@
   ],
   "cbom": [
     {
-      "domain": "testingicaio.vupune.ac.in",
+      "domain": "pilot.hack2skill.com",
       "ip": null,
       "tls_version": "Not Supported",
       "cipher": "None",
@@ -438,7 +971,7 @@
       "signature": null,
       "algorithm_type": "UNKNOWN",
       "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
+      "quantum_vulnerable": true,
       "ports": {
         "80": false,
         "443": false,
@@ -460,770 +993,278 @@
       "services": [],
       "outdated_services": false,
       "type": "server",
-      "risk_level": "Medium",
+      "risk_level": "High",
       "certificate_severity": "none",
       "certificate_label": "No HTTPS",
       "tls_label": "No TLS",
       "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "vunet.vupune.ac.in",
-      "ip": "13.205.24.1",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
       "quantum_label": "Vulnerable",
       "quantum_severity": "high",
       "headers_label": "Insecure",
       "headers_severity": "high"
     },
     {
-      "domain": "icaio.vupune.ac.in",
-      "ip": "13.205.24.1",
+      "domain": "test.hack2skill.com",
+      "ip": "76.76.21.21",
       "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "cipher": "TLS_AES_128_GCM_SHA256",
       "key_size": 2048,
       "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "learner.vupune.ac.in",
-      "ip": "18.172.64.26",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 291,
-        "expiry_date": "2027-01-30",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "Amazon CloudFront httpd",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "https",
-          "product": "",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "onlineadmissionapi.vupune.ac.in",
-      "ip": "15.207.217.242",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 161,
-        "expiry_date": "2026-09-22",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "erpadmin.vupune.ac.in",
-      "ip": "13.205.53.99",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 113,
-        "expiry_date": "2026-08-05",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "research.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "erp.vupune.ac.in",
-      "ip": null,
-      "tls_version": "Not Supported",
-      "cipher": "None",
-      "key_size": null,
-      "certificate_algo": null,
       "algorithm": null,
       "signature": null,
-      "algorithm_type": "UNKNOWN",
-      "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
-      "ports": {
-        "80": false,
-        "443": false,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": null,
-        "expiry_date": null,
-        "issuer_ca": null
-      },
-      "certificate_status": "No HTTPS",
-      "services": [],
-      "outdated_services": false,
-      "type": "server",
-      "risk_level": "Medium",
-      "certificate_severity": "none",
-      "certificate_label": "No HTTPS",
-      "tls_label": "No TLS",
-      "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "admission.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
       "algorithm_type": "RSA",
       "key_strength": "STRONG",
       "quantum_vulnerable": true,
       "ports": {
         "80": true,
         "443": true,
-        "8080": false,
+        "8080": true,
         "8443": false
       },
       "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "onlineadmission.vupune.ac.in",
-      "ip": "108.159.80.100",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 161,
-        "expiry_date": "2026-09-22",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "Amazon CloudFront httpd",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "https",
-          "product": "",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "convo.vupune.ac.in",
-      "ip": null,
-      "tls_version": "Not Supported",
-      "cipher": "None",
-      "key_size": null,
-      "certificate_algo": null,
-      "algorithm": null,
-      "signature": null,
-      "algorithm_type": "UNKNOWN",
-      "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
-      "ports": {
-        "80": false,
-        "443": false,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": null,
-        "expiry_date": null,
-        "issuer_ca": null
-      },
-      "certificate_status": "No HTTPS",
-      "services": [],
-      "outdated_services": false,
-      "type": "server",
-      "risk_level": "Medium",
-      "certificate_severity": "none",
-      "certificate_label": "No HTTPS",
-      "tls_label": "No TLS",
-      "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "incon-ctlvu.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "testingiqube.vupune.ac.in",
-      "ip": null,
-      "tls_version": "Not Supported",
-      "cipher": "None",
-      "key_size": null,
-      "certificate_algo": null,
-      "algorithm": null,
-      "signature": null,
-      "algorithm_type": "UNKNOWN",
-      "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
-      "ports": {
-        "80": false,
-        "443": false,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": null,
-        "expiry_date": null,
-        "issuer_ca": null
-      },
-      "certificate_status": "No HTTPS",
-      "services": [],
-      "outdated_services": false,
-      "type": "server",
-      "risk_level": "Medium",
-      "certificate_severity": "none",
-      "certificate_label": "No HTTPS",
-      "tls_label": "No TLS",
-      "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "careers.vupune.ac.in",
-      "ip": null,
-      "tls_version": "Not Supported",
-      "cipher": "None",
-      "key_size": null,
-      "certificate_algo": null,
-      "algorithm": null,
-      "signature": null,
-      "algorithm_type": "UNKNOWN",
-      "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
-      "ports": {
-        "80": false,
-        "443": false,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": null,
-        "expiry_date": null,
-        "issuer_ca": null
-      },
-      "certificate_status": "No HTTPS",
-      "services": [],
-      "outdated_services": false,
-      "type": "server",
-      "risk_level": "Medium",
-      "certificate_severity": "none",
-      "certificate_label": "No HTTPS",
-      "tls_label": "No TLS",
-      "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "vupune.ac.in",
-      "ip": "3.109.41.211",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
+        "hsts": true,
+        "csp": true,
         "x_frame_options": true,
         "x_content_type_options": true
       },
       "certificate": {
-        "expiry_days": 170,
-        "expiry_date": "2026-10-01",
-        "issuer_ca": "Amazon"
+        "expiry_days": 62,
+        "expiry_date": "2026-08-17",
+        "issuer_ca": "Let's Encrypt"
       },
       "certificate_status": "OK",
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
           "version": "",
           "outdated": false
         }
       ],
       "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
+      "type": "api",
+      "risk_level": "High",
       "certificate_severity": "low",
       "certificate_label": "Valid",
       "tls_label": "Secure",
       "tls_severity": "low",
       "quantum_label": "Vulnerable",
       "quantum_severity": "high",
-      "headers_label": "Partial",
-      "headers_severity": "medium"
+      "headers_label": "Secure",
+      "headers_severity": "low"
     },
     {
-      "domain": "phdadmission.vupune.ac.in",
+      "domain": "billamama.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 87,
+        "expiry_date": "2026-09-11",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "h2stc.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 36,
+        "expiry_date": "2026-07-21",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "referral.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 38,
+        "expiry_date": "2026-07-23",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "testing.hack2skill.com",
       "ip": null,
       "tls_version": "Not Supported",
       "cipher": "None",
@@ -1233,7 +1274,7 @@
       "signature": null,
       "algorithm_type": "UNKNOWN",
       "key_strength": "MODERATE",
-      "quantum_vulnerable": false,
+      "quantum_vulnerable": true,
       "ports": {
         "80": false,
         "443": false,
@@ -1255,31 +1296,82 @@
       "services": [],
       "outdated_services": false,
       "type": "server",
-      "risk_level": "Medium",
+      "risk_level": "High",
       "certificate_severity": "none",
       "certificate_label": "No HTTPS",
       "tls_label": "No TLS",
       "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
       "headers_label": "Insecure",
       "headers_severity": "high"
     },
     {
-      "domain": "event.vupune.ac.in",
-      "ip": null,
-      "tls_version": "Not Supported",
-      "cipher": "None",
+      "domain": "assessments.hack2skill.com",
+      "ip": "76.76.21.21",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_AES_128_GCM_SHA256",
       "key_size": null,
       "certificate_algo": null,
       "algorithm": null,
       "signature": null,
       "algorithm_type": "UNKNOWN",
-      "key_strength": "MODERATE",
+      "key_strength": "STRONG",
       "quantum_vulnerable": false,
       "ports": {
         "80": false,
-        "443": false,
+        "443": true,
+        "8080": false,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 61,
+        "expiry_date": "2026-08-15",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "Medium",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "ai.hack2skill.com",
+      "ip": "34.131.123.164",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
         "8080": false,
         "8443": false
       },
@@ -1294,71 +1386,28 @@
         "expiry_date": null,
         "issuer_ca": null
       },
-      "certificate_status": "No HTTPS",
-      "services": [],
+      "certificate_status": "UNREACHABLE",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
       "outdated_services": false,
-      "type": "server",
-      "risk_level": "Medium",
+      "type": "web",
+      "risk_level": "High",
       "certificate_severity": "none",
-      "certificate_label": "No HTTPS",
-      "tls_label": "No TLS",
-      "tls_severity": "high",
-      "quantum_label": "Safe",
-      "quantum_severity": "low",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "iqube.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
+      "certificate_label": "Unreachable",
       "tls_label": "Secure",
       "tls_severity": "low",
       "quantum_label": "Vulnerable",
@@ -1367,162 +1416,39 @@
       "headers_severity": "high"
     },
     {
-      "domain": "vulj.vupune.ac.in",
-      "ip": "3.109.147.75",
+      "domain": "vision.hack2skill.com",
+      "ip": "35.193.169.183",
       "tls_version": "TLSv1.3",
       "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
       "key_strength": "STRONG",
-      "quantum_vulnerable": true,
+      "quantum_vulnerable": false,
       "ports": {
-        "80": true,
+        "80": false,
         "443": true,
         "8080": false,
         "8443": false
       },
       "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
       },
       "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
+        "expiry_days": 32,
+        "expiry_date": "2026-07-17",
+        "issuer_ca": "Let's Encrypt"
       },
       "certificate_status": "OK",
       "services": [
         {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "icsiaiml.vupune.ac.in",
-      "ip": "3.109.147.75",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "http",
-          "product": "AWS Elastic Load Balancing",
-          "version": "",
-          "outdated": false
-        }
-      ],
-      "outdated_services": false,
-      "type": "web",
-      "risk_level": "Low",
-      "certificate_severity": "low",
-      "certificate_label": "Valid",
-      "tls_label": "Secure",
-      "tls_severity": "low",
-      "quantum_label": "Vulnerable",
-      "quantum_severity": "high",
-      "headers_label": "Insecure",
-      "headers_severity": "high"
-    },
-    {
-      "domain": "vuerp.vupune.ac.in",
-      "ip": "18.239.111.69",
-      "tls_version": "TLSv1.3",
-      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
-      "key_size": 2048,
-      "certificate_algo": "RSA",
-      "algorithm": "RSA",
-      "signature": "sha256",
-      "algorithm_type": "RSA",
-      "key_strength": "STRONG",
-      "quantum_vulnerable": true,
-      "ports": {
-        "80": true,
-        "443": true,
-        "8080": false,
-        "8443": false
-      },
-      "security_headers": {
-        "hsts": false,
-        "csp": false,
-        "x_frame_options": false,
-        "x_content_type_options": false
-      },
-      "certificate": {
-        "expiry_days": 291,
-        "expiry_date": "2027-01-30",
-        "issuer_ca": "Amazon"
-      },
-      "certificate_status": "OK",
-      "services": [
-        {
-          "port": 80,
-          "service": "http",
-          "product": "Amazon CloudFront httpd",
-          "version": "",
-          "outdated": false
-        },
-        {
-          "port": 443,
-          "service": "https",
           "product": "",
           "version": "",
           "outdated": false
@@ -1535,14 +1461,144 @@
       "certificate_label": "Valid",
       "tls_label": "Secure",
       "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "isro.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 38,
+        "expiry_date": "2026-07-24",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
       "quantum_label": "Vulnerable",
       "quantum_severity": "high",
       "headers_label": "Insecure",
       "headers_severity": "high"
     },
     {
-      "domain": "jstir.vupune.ac.in",
-      "ip": "13.205.24.1",
+      "domain": "hawkeye.hack2skill.com",
+      "ip": "35.232.225.147",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 47,
+        "expiry_date": "2026-08-02",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "hello.hack2skill.com",
+      "ip": "185.199.109.153",
       "tls_version": "TLSv1.3",
       "cipher": "TLS_CHACHA20_POLY1305_SHA256",
       "key_size": 2048,
@@ -1565,30 +1621,30 @@
         "x_content_type_options": false
       },
       "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
+        "expiry_days": 89,
+        "expiry_date": "2026-09-13",
+        "issuer_ca": "Let's Encrypt"
       },
       "certificate_status": "OK",
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         }
       ],
       "outdated_services": false,
       "type": "web",
-      "risk_level": "Low",
+      "risk_level": "High",
       "certificate_severity": "low",
       "certificate_label": "Valid",
       "tls_label": "Secure",
@@ -1599,8 +1655,73 @@
       "headers_severity": "high"
     },
     {
-      "domain": "icrcsd.vupune.ac.in",
-      "ip": "13.126.185.221",
+      "domain": "backend-api-senior.hack2skill.com",
+      "ip": "35.244.23.164",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 84,
+        "expiry_date": "2026-09-08",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "api",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "community.hack2skill.com",
+      "ip": "185.199.109.153",
       "tls_version": "TLSv1.3",
       "cipher": "TLS_CHACHA20_POLY1305_SHA256",
       "key_size": 2048,
@@ -1613,7 +1734,7 @@
       "ports": {
         "80": true,
         "443": true,
-        "8080": false,
+        "8080": true,
         "8443": false
       },
       "security_headers": {
@@ -1623,23 +1744,160 @@
         "x_content_type_options": false
       },
       "certificate": {
-        "expiry_days": 163,
-        "expiry_date": "2026-09-24",
-        "issuer_ca": "Amazon"
+        "expiry_days": 34,
+        "expiry_date": "2026-07-19",
+        "issuer_ca": "Let's Encrypt"
       },
       "certificate_status": "OK",
       "services": [
         {
           "port": 80,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
           "version": "",
           "outdated": false
         },
         {
           "port": 443,
           "service": "http",
-          "product": "AWS Elastic Load Balancing",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "gdsc-india.hack2skill.com",
+      "ip": "76.76.21.164",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 36,
+        "expiry_date": "2026-07-21",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "api",
+      "risk_level": "Medium",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "swagstore.hack2skill.com",
+      "ip": "34.70.148.250",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 81,
+        "expiry_date": "2026-09-04",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
           "version": "",
           "outdated": false
         }
@@ -1651,6 +1909,1234 @@
       "certificate_label": "Valid",
       "tls_label": "Secure",
       "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "vision-backend-staging.hack2skill.com",
+      "ip": "13.235.231.244",
+      "tls_version": "Unknown",
+      "cipher": "Unknown",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "UNREACHABLE",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "Unreachable",
+      "tls_label": "Moderate",
+      "tls_severity": "medium",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "googleindiasummit.hack2skill.com",
+      "ip": "34.47.128.177",
+      "tls_version": "Not Supported",
+      "cipher": "None",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": false,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "No HTTPS",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "No HTTPS",
+      "tls_label": "No TLS",
+      "tls_severity": "high",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "no-reply.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "Not Supported",
+      "cipher": "None",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": false,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "No HTTPS",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "No HTTPS",
+      "tls_label": "No TLS",
+      "tls_severity": "high",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "fellows.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": true,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 20,
+        "expiry_date": "2026-07-05",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "WARNING",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "medium",
+      "certificate_label": "Expiring Soon",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "backend-api.hack2skill.com",
+      "ip": "34.47.135.158",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 88,
+        "expiry_date": "2026-09-11",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "api",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "conference.hack2skill.com",
+      "ip": "13.50.198.210",
+      "tls_version": "Unknown",
+      "cipher": "Unknown",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "UNREACHABLE",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "Unreachable",
+      "tls_label": "Moderate",
+      "tls_severity": "medium",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "pay.hack2skill.com",
+      "ip": "100.49.110.141",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": true,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 117,
+        "expiry_date": "2026-10-11",
+        "issuer_ca": "GoDaddy.com, Inc."
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "hack2skill.com",
+      "ip": "35.190.6.179",
+      "tls_version": "Unknown",
+      "cipher": "Unknown",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 84,
+        "expiry_date": "2026-09-07",
+        "issuer_ca": "Google Trust Services"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Moderate",
+      "tls_severity": "medium",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "fwtrack.hack2skill.com",
+      "ip": "65.2.193.168",
+      "tls_version": "TLSv1.2",
+      "cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 37,
+        "expiry_date": "2026-07-22",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "blog.hack2skill.com",
+      "ip": "76.76.21.21",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 74,
+        "expiry_date": "2026-08-29",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "api",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "frontend-api.hack2skill.com",
+      "ip": "13.200.78.74",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 37,
+        "expiry_date": "2026-07-22",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "sih.hack2skill.com",
+      "ip": "34.100.155.175",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 62,
+        "expiry_date": "2026-08-16",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "alphavision.hack2skill.com",
+      "ip": "34.117.20.246",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 89,
+        "expiry_date": "2026-09-12",
+        "issuer_ca": "Google Trust Services"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "docs.hack2skill.com",
+      "ip": "172.64.147.209",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha256",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": true
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": false,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 77,
+        "expiry_date": "2026-08-31",
+        "issuer_ca": "Google Trust Services"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "api",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Partial",
+      "headers_severity": "medium"
+    },
+    {
+      "domain": "developmentsih.hack2skill.com",
+      "ip": "34.47.133.67",
+      "tls_version": "Unknown",
+      "cipher": "Unknown",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "UNREACHABLE",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "Unreachable",
+      "tls_label": "Moderate",
+      "tls_severity": "medium",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "spaceappsnoida.hack2skill.com",
+      "ip": "185.199.109.153",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 39,
+        "expiry_date": "2026-07-24",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "developmentvision.hack2skill.com",
+      "ip": "34.49.198.155",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 2048,
+      "certificate_algo": "RSA",
+      "algorithm": "RSA",
+      "signature": "sha256",
+      "algorithm_type": "RSA",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": true,
+        "csp": true,
+        "x_frame_options": true,
+        "x_content_type_options": true
+      },
+      "certificate": {
+        "expiry_days": 40,
+        "expiry_date": "2026-07-25",
+        "issuer_ca": "Google Trust Services"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Vulnerable",
+      "quantum_severity": "high",
+      "headers_label": "Secure",
+      "headers_severity": "low"
+    },
+    {
+      "domain": "certificate.hack2skill.com",
+      "ip": "136.119.84.178",
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+      "key_size": 256,
+      "certificate_algo": "ECC",
+      "algorithm": "ECDSA",
+      "signature": "sha384",
+      "algorithm_type": "ECC",
+      "key_strength": "STRONG",
+      "quantum_vulnerable": false,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": 32,
+        "expiry_date": "2026-07-17",
+        "issuer_ca": "Let's Encrypt"
+      },
+      "certificate_status": "OK",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "Low",
+      "certificate_severity": "low",
+      "certificate_label": "Valid",
+      "tls_label": "Secure",
+      "tls_severity": "low",
+      "quantum_label": "Safe",
+      "quantum_severity": "low",
+      "headers_label": "Insecure",
+      "headers_severity": "high"
+    },
+    {
+      "domain": "sih-staging.hack2skill.com",
+      "ip": "34.47.133.67",
+      "tls_version": "Unknown",
+      "cipher": "Unknown",
+      "key_size": null,
+      "certificate_algo": null,
+      "algorithm": null,
+      "signature": null,
+      "algorithm_type": "UNKNOWN",
+      "key_strength": "MODERATE",
+      "quantum_vulnerable": true,
+      "ports": {
+        "80": true,
+        "443": true,
+        "8080": true,
+        "8443": false
+      },
+      "security_headers": {
+        "hsts": false,
+        "csp": false,
+        "x_frame_options": false,
+        "x_content_type_options": false
+      },
+      "certificate": {
+        "expiry_days": null,
+        "expiry_date": null,
+        "issuer_ca": null
+      },
+      "certificate_status": "UNREACHABLE",
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "product": "",
+          "version": "",
+          "outdated": false
+        }
+      ],
+      "outdated_services": false,
+      "type": "web",
+      "risk_level": "High",
+      "certificate_severity": "none",
+      "certificate_label": "Unreachable",
+      "tls_label": "Moderate",
+      "tls_severity": "medium",
       "quantum_label": "Vulnerable",
       "quantum_severity": "high",
       "headers_label": "Insecure",
@@ -1658,167 +3144,55 @@
     }
   ],
   "summary": {
-    "total_assets": 23,
-    "https_enabled": 16,
-    "http_only": 0,
-    "quantum_vulnerable": 16,
-    "quantum_safe": 7,
-    "high_risk_assets": 0,
-    "header_issues": 23,
-    "unreachable_assets": 0,
-    "expiring_soon": 0,
+    "total_assets": 35,
+    "https_enabled": 31,
+    "http_only": 2,
+    "quantum_vulnerable": 24,
+    "quantum_safe": 11,
+    "high_risk_assets": 24,
+    "header_issues": 28,
+    "unreachable_assets": 5,
+    "expiring_soon": 1,
     "outdated_services": 0
   },
   "threat_surface": [
     {
-      "domain": "slbcdelhi.pnb.bankd.in",
+      "domain": "hack2skills.com",
       "type": "addition",
-      "ip": "208.91.196.91",
+      "ip": "13.248.243.5",
       "has_mx": true,
       "similarity": null,
       "risk": "HIGH"
     },
     {
-      "domain": "slbcdelhi.pnb.bink.in",
-      "type": "bitsquatting",
-      "ip": "64.190.63.222",
-      "has_mx": true,
+      "domain": "hack2sk.ill.com",
+      "type": "subdomain",
+      "ip": "13.248.169.48",
+      "has_mx": false,
       "similarity": null,
       "risk": "HIGH"
     },
     {
-      "domain": "slbcdelhi.pnb.rank.in",
-      "type": "bitsquatting",
-      "ip": "64.190.63.222",
-      "has_mx": true,
-      "similarity": null,
-      "risk": "HIGH"
-    },
-    {
-      "domain": "slbcdelhi.pnb.1bank.in",
-      "type": "homoglyph",
-      "ip": "64.190.63.222",
-      "has_mx": true,
-      "similarity": null,
-      "risk": "HIGH"
-    },
-    {
-      "domain": "slbcdelhi.pnb.ibank.in",
-      "type": "homoglyph",
-      "ip": "64.190.63.222",
-      "has_mx": true,
-      "similarity": null,
-      "risk": "HIGH"
-    },
-    {
-      "domain": "slbcdelhi.pnb.bonk.in",
-      "type": "vowel-swap",
-      "ip": "64.190.63.222",
-      "has_mx": true,
-      "similarity": null,
-      "risk": "HIGH"
-    },
-    {
-      "domain": "slbcdelhi.pnb.banke.in",
-      "type": "addition",
-      "ip": "104.21.68.79",
+      "domain": "hack.2skill.com",
+      "type": "subdomain",
+      "ip": "13.223.25.84",
       "has_mx": false,
       "similarity": null,
       "risk": "MEDIUM"
     },
     {
-      "domain": "slbcdelhi.pnb.banki.in",
-      "type": "addition",
-      "ip": "75.2.103.23",
+      "domain": "hack2s.kill.com",
+      "type": "subdomain",
+      "ip": "192.185.48.140",
       "has_mx": false,
       "similarity": null,
       "risk": "MEDIUM"
     },
     {
-      "domain": "slbcdelhi.pnb.banka.in",
-      "type": "addition",
-      "ip": "91.195.241.232",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.bani.in",
-      "type": "bitsquatting",
-      "ip": "104.247.81.99",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.fank.in",
-      "type": "bitsquatting",
-      "ip": "104.247.81.99",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.bamk.in",
-      "type": "homoglyph",
-      "ip": "139.162.174.209",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.dark.in",
-      "type": "homoglyph",
-      "ip": "66.6.44.4",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.dank.in",
-      "type": "homoglyph",
-      "ip": "91.195.241.232",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.lbank.in",
-      "type": "homoglyph",
-      "ip": "91.195.241.232",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.nank.in",
-      "type": "replacement",
-      "ip": "192.64.119.254",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnbbank.in",
-      "type": "various",
-      "ip": "185.53.177.29",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.bank-in.com",
-      "type": "various",
-      "ip": "66.45.246.141",
-      "has_mx": false,
-      "similarity": null,
-      "risk": "MEDIUM"
-    },
-    {
-      "domain": "slbcdelhi.pnb.bank.in",
+      "domain": "hack2skill.com",
       "type": "*original",
-      "ip": "49.50.81.77",
-      "has_mx": false,
+      "ip": "35.190.6.179",
+      "has_mx": true,
       "similarity": null,
       "risk": "LOW"
     }
@@ -1830,5 +3204,1458 @@
       "template": "CVE-2021-24917",
       "matched": "https://slbcpunjab.pnb.bank.in/wp-admin/options.php"
     }
-  ]
+  ],
+  "compliance": {
+    "total_affected_findings": 20,
+    "framework_counts": {
+      "NIST_PQC": 16,
+      "ISO_27001": 20,
+      "GDPR": 20
+    },
+    "high_confidence_matches": 16,
+    "findings": [
+      {
+        "domain": "test.hack2skill.com",
+        "ip": "76.76.21.21",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_AES_128_GCM_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": null,
+        "signature": null,
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": true,
+          "csp": true,
+          "x_frame_options": true,
+          "x_content_type_options": true
+        },
+        "certificate": {
+          "expiry_days": 62,
+          "expiry_date": "2026-08-17",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "api",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Secure",
+        "headers_severity": "low",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "billamama.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 87,
+          "expiry_date": "2026-09-11",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "h2stc.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 36,
+          "expiry_date": "2026-07-21",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "referral.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 38,
+          "expiry_date": "2026-07-23",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "ai.hack2skill.com",
+        "ip": "34.131.123.164",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": false,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": null,
+          "expiry_date": null,
+          "issuer_ca": null
+        },
+        "certificate_status": "UNREACHABLE",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "none",
+        "certificate_label": "Unreachable",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Weak, missing, or expired certificates weaken secure transport and trust controls. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "isro.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 38,
+          "expiry_date": "2026-07-24",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "hello.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": false,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 89,
+          "expiry_date": "2026-09-13",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "community.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 34,
+          "expiry_date": "2026-07-19",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "vision-backend-staging.hack2skill.com",
+        "ip": "13.235.231.244",
+        "tls_version": "Unknown",
+        "cipher": "Unknown",
+        "key_size": null,
+        "certificate_algo": null,
+        "algorithm": null,
+        "signature": null,
+        "algorithm_type": "UNKNOWN",
+        "key_strength": "MODERATE",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": null,
+          "expiry_date": null,
+          "issuer_ca": null
+        },
+        "certificate_status": "UNREACHABLE",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "none",
+        "certificate_label": "Unreachable",
+        "tls_label": "Moderate",
+        "tls_severity": "medium",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "Weak, missing, or expired certificates weaken secure transport and trust controls.",
+        "compliance_confidence": "medium",
+        "compliance_severity_hint": "medium"
+      },
+      {
+        "domain": "fellows.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": true,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 20,
+          "expiry_date": "2026-07-05",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "WARNING",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "medium",
+        "certificate_label": "Expiring Soon",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "conference.hack2skill.com",
+        "ip": "13.50.198.210",
+        "tls_version": "Unknown",
+        "cipher": "Unknown",
+        "key_size": null,
+        "certificate_algo": null,
+        "algorithm": null,
+        "signature": null,
+        "algorithm_type": "UNKNOWN",
+        "key_strength": "MODERATE",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": null,
+          "expiry_date": null,
+          "issuer_ca": null
+        },
+        "certificate_status": "UNREACHABLE",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "none",
+        "certificate_label": "Unreachable",
+        "tls_label": "Moderate",
+        "tls_severity": "medium",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "Weak, missing, or expired certificates weaken secure transport and trust controls.",
+        "compliance_confidence": "medium",
+        "compliance_severity_hint": "medium"
+      },
+      {
+        "domain": "pay.hack2skill.com",
+        "ip": "100.49.110.141",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": true,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 117,
+          "expiry_date": "2026-10-11",
+          "issuer_ca": "GoDaddy.com, Inc."
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "hack2skill.com",
+        "ip": "35.190.6.179",
+        "tls_version": "Unknown",
+        "cipher": "Unknown",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "MODERATE",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": true,
+          "csp": true,
+          "x_frame_options": true,
+          "x_content_type_options": true
+        },
+        "certificate": {
+          "expiry_days": 84,
+          "expiry_date": "2026-09-07",
+          "issuer_ca": "Google Trust Services"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Moderate",
+        "tls_severity": "medium",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Secure",
+        "headers_severity": "low",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "fwtrack.hack2skill.com",
+        "ip": "65.2.193.168",
+        "tls_version": "TLSv1.2",
+        "cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 37,
+          "expiry_date": "2026-07-22",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "blog.hack2skill.com",
+        "ip": "76.76.21.21",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 74,
+          "expiry_date": "2026-08-29",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "api",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "alphavision.hack2skill.com",
+        "ip": "34.117.20.246",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": true,
+          "csp": true,
+          "x_frame_options": true,
+          "x_content_type_options": true
+        },
+        "certificate": {
+          "expiry_days": 89,
+          "expiry_date": "2026-09-12",
+          "issuer_ca": "Google Trust Services"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Secure",
+        "headers_severity": "low",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "developmentsih.hack2skill.com",
+        "ip": "34.47.133.67",
+        "tls_version": "Unknown",
+        "cipher": "Unknown",
+        "key_size": null,
+        "certificate_algo": null,
+        "algorithm": null,
+        "signature": null,
+        "algorithm_type": "UNKNOWN",
+        "key_strength": "MODERATE",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": null,
+          "expiry_date": null,
+          "issuer_ca": null
+        },
+        "certificate_status": "UNREACHABLE",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "none",
+        "certificate_label": "Unreachable",
+        "tls_label": "Moderate",
+        "tls_severity": "medium",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "Weak, missing, or expired certificates weaken secure transport and trust controls.",
+        "compliance_confidence": "medium",
+        "compliance_severity_hint": "medium"
+      },
+      {
+        "domain": "spaceappsnoida.hack2skill.com",
+        "ip": "185.199.109.153",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": 39,
+          "expiry_date": "2026-07-24",
+          "issuer_ca": "Let's Encrypt"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "developmentvision.hack2skill.com",
+        "ip": "34.49.198.155",
+        "tls_version": "TLSv1.3",
+        "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+        "key_size": 2048,
+        "certificate_algo": "RSA",
+        "algorithm": "RSA",
+        "signature": "sha256",
+        "algorithm_type": "RSA",
+        "key_strength": "STRONG",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": true,
+          "csp": true,
+          "x_frame_options": true,
+          "x_content_type_options": true
+        },
+        "certificate": {
+          "expiry_days": 40,
+          "expiry_date": "2026-07-25",
+          "issuer_ca": "Google Trust Services"
+        },
+        "certificate_status": "OK",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "low",
+        "certificate_label": "Valid",
+        "tls_label": "Secure",
+        "tls_severity": "low",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Secure",
+        "headers_severity": "low",
+        "compliance_flags": [
+          "NIST_PQC",
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "RSA keys at 2048 bits or below are still legacy cryptography and may not satisfy modern post-quantum migration expectations. Deprecated cryptographic algorithms can undermine data confidentiality and integrity expectations.",
+        "compliance_confidence": "high",
+        "compliance_severity_hint": "high"
+      },
+      {
+        "domain": "sih-staging.hack2skill.com",
+        "ip": "34.47.133.67",
+        "tls_version": "Unknown",
+        "cipher": "Unknown",
+        "key_size": null,
+        "certificate_algo": null,
+        "algorithm": null,
+        "signature": null,
+        "algorithm_type": "UNKNOWN",
+        "key_strength": "MODERATE",
+        "quantum_vulnerable": true,
+        "ports": {
+          "80": true,
+          "443": true,
+          "8080": true,
+          "8443": false
+        },
+        "security_headers": {
+          "hsts": false,
+          "csp": false,
+          "x_frame_options": false,
+          "x_content_type_options": false
+        },
+        "certificate": {
+          "expiry_days": null,
+          "expiry_date": null,
+          "issuer_ca": null
+        },
+        "certificate_status": "UNREACHABLE",
+        "services": [
+          {
+            "port": 80,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 443,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          },
+          {
+            "port": 8080,
+            "service": "http",
+            "product": "",
+            "version": "",
+            "outdated": false
+          }
+        ],
+        "outdated_services": false,
+        "type": "web",
+        "risk_level": "High",
+        "certificate_severity": "none",
+        "certificate_label": "Unreachable",
+        "tls_label": "Moderate",
+        "tls_severity": "medium",
+        "quantum_label": "Vulnerable",
+        "quantum_severity": "high",
+        "headers_label": "Insecure",
+        "headers_severity": "high",
+        "compliance_flags": [
+          "ISO_27001",
+          "GDPR"
+        ],
+        "compliance_reason": "Weak, missing, or expired certificates weaken secure transport and trust controls.",
+        "compliance_confidence": "medium",
+        "compliance_severity_hint": "medium"
+      }
+    ]
+  }
 }

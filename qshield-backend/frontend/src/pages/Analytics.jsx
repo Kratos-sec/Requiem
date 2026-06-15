@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { useState } from 'react';
+import { buildPriorityActions } from '../utils/priorityActions';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -62,39 +63,7 @@ export default function Analytics({ scanData, isLoading, error }) {
   const legacyPct = Math.round((legacy / total) * 100) || 0;
   const criticalPct = Math.round((critical / total) * 100) || 0;
 
-  const recommendations = (() => {
-    const assetList = Array.isArray(assets) ? assets : [];
-    const hasNoTls = assetList.some((asset) => {
-      const tls = normalizeText(asset?.tls_version);
-      const cipher = normalizeText(asset?.cipher);
-      return tls === 'not supported' || cipher === 'none';
-    });
-    const hasQuantumVuln = assetList.some((asset) => asset?.quantum_vulnerable === true || normalizeText(asset?.risk_level) === 'high');
-    const hasLegacyCrypto = assetList.some((asset) => {
-      const keySize = normalizeText(asset?.key_size);
-      const algorithm = normalizeText(asset?.algorithm || asset?.certificate_algo);
-      return keySize === '1024-bit' || keySize === '2048-bit' || algorithm.includes('sha-1') || algorithm.includes('md5');
-    });
-
-    const items = [];
-    items.push(
-      hasNoTls
-        ? { title: 'Some assets do not support TLS and need immediate remediation.', severity: 'High', icon: 'security' }
-        : { title: 'All scanned assets currently meet TLS 1.2+ requirements.', severity: 'Low', icon: 'verified' },
-    );
-    items.push(
-      hasQuantumVuln
-        ? { title: 'Some assets remain quantum vulnerable and need PQC migration planning.', severity: 'High', icon: 'memory' }
-        : { title: 'No quantum vulnerable assets were flagged in the latest scan.', severity: 'Low', icon: 'check_circle' },
-    );
-    items.push(
-      hasLegacyCrypto
-        ? { title: 'Legacy cryptographic algorithms are still present in the inventory.', severity: 'Medium', icon: 'key' }
-        : { title: 'No obvious legacy cryptographic algorithms were detected.', severity: 'Low', icon: 'verified' },
-    );
-
-    return items;
-  })();
+  const recommendations = buildPriorityActions(scanData);
 
   const barOptions = {
     responsive: true, maintainAspectRatio: false,

@@ -95,6 +95,18 @@ const deriveQuantumState = (asset) => {
   return 'Unknown';
 };
 
+const dedupeServices = (services = []) => {
+  const seen = new Set();
+  return services.filter((svc) => {
+    const name = String(svc?.product || svc?.service || 'unknown').trim().toLowerCase();
+    const version = String(svc?.version || '').trim().toLowerCase();
+    const key = `${name}|${version}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 export default function Assets({ scanData, isLoading, error }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('All');
@@ -154,7 +166,7 @@ export default function Assets({ scanData, isLoading, error }) {
       cert_valid_from: asset?.cert_valid_from ?? enrichment?.cert_valid_from,
       cert_valid_to: asset?.cert_valid_to ?? enrichment?.cert_valid_to,
       type: getMappedType(asset?.type || 'Unknown'),
-      services: asset?.services || [],
+      services: dedupeServices(asset?.services || []),
     };
   });
 

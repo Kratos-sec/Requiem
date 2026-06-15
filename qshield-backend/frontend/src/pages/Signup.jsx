@@ -278,7 +278,7 @@ export default function Signup() {
           ))}
         </div>
 
-        <p className="relative z-10 text-white/25 text-[10px] tracking-widest uppercase">© 2025 Requiem Security</p>
+        <p className="relative z-10 text-white/25 text-[10px] tracking-widest uppercase">© 2026 Requiem Security</p>
       </div>
 
       {/* ── Right form ── */}

@@ -84,7 +84,7 @@ export default function TwoFAVerify() {
               </span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">QShield</h1>
+              <h1 className="text-xl font-bold text-white tracking-tight">Hack2Skill</h1>
               <p className="text-[10px] text-[#C9A84C] font-semibold tracking-[0.18em] uppercase">
                 Quantum-Safe Security Platform
               </p>
@@ -110,7 +110,7 @@ export default function TwoFAVerify() {
         </div>
 
         <p className="text-white/25 text-xs relative z-10">
-          © 2025 QShield. Punjab National Bank Security Services.
+          © 2026 Hack2Skill. All rights reserved.
         </p>
       </div>
 
@@ -120,7 +120,7 @@ export default function TwoFAVerify() {
           {/* Mobile logo */}
           <div className="flex lg:hidden items-center gap-2 mb-8">
             <span className="material-symbols-outlined text-[#81001d] text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>shield</span>
-            <span className="text-lg font-bold text-[#81001d]">QShield</span>
+            <span className="text-lg font-bold text-[#81001d]">Hack2Skill</span>
           </div>
 
           {/* Icon */}

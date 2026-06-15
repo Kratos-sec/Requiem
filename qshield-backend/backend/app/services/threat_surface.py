@@ -61,7 +61,17 @@ def _compute_risk(
     return "LOW"
 
 
-def scan_threat_surface(domain: str, enable_phishing_detection: bool = False) -> list[dict[str, Any]]:
+def scan_threat_surface(
+    domain: str,
+    enable_phishing_detection: bool = False,
+    active_only: bool = False,
+) -> list[dict[str, Any]]:
+    logger.info(
+        "Running threat surface scan for %s phishing_detection=%s active_only=%s",
+        domain,
+        enable_phishing_detection,
+        active_only,
+    )
     try:
         data = dnstwist.run(
             domain=domain,
@@ -86,7 +96,6 @@ def scan_threat_surface(domain: str, enable_phishing_detection: bool = False) ->
         else:
             raise
 
-    active_only = True
     results: list[dict[str, Any]] = []
     for entry in data or []:
         dns_a = entry.get("dns_a")
@@ -122,4 +131,5 @@ def scan_threat_surface(domain: str, enable_phishing_detection: bool = False) ->
     order = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}
     results.sort(key=lambda item: order.get(str(item.get("risk")), 99))
 
+    logger.info("Threat surface scan complete for %s raw=%d returned=%d", domain, len(data or []), len(results))
     return results

@@ -340,6 +340,7 @@ class ScanRequest(BaseModel):
 class ThreatSurfaceRequest(BaseModel):
     domain: str
     phishing_detection: bool = True
+    active_only: bool = False
 
 
 class AiChatRequest(BaseModel):
@@ -484,6 +485,7 @@ async def threat_surface(req: ThreatSurfaceRequest):
             scan_threat_surface,
             domain,
             req.phishing_detection,
+            req.active_only,
         )
     except Exception as exc:
         logger.exception("Threat-surface scan failed for %s", domain)

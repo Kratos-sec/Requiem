@@ -5,6 +5,7 @@ import Recommendations from '../components/Recommendations';
 import { CertificateExpiryCard, IpVersionCard } from '../components/AnalyticsWidgets';
 import TopAssets from '../components/TopAssets';
 import { useNavigate } from 'react-router-dom';
+import { buildPriorityActions } from '../utils/priorityActions';
 
 export default function Dashboard({ scanData, isLoading, error }) {
   const navigate = useNavigate();
@@ -42,13 +43,29 @@ export default function Dashboard({ scanData, isLoading, error }) {
 
   const { score, risk, quantum_status, summary, rating, insights, cbom, inventory, counts } = scanData;
   const sourceAssets = Array.isArray(scanData.cbom) && scanData.cbom.length ? scanData.cbom : (scanData.assets || []);
+  const normalizeText = (value) => String(value || '').trim().toLowerCase();
+  const deriveRiskLevel = (asset) => {
+    const tls = normalizeText(asset?.tls_version);
+    const cipher = normalizeText(asset?.cipher);
+    const keySize = String(asset?.key_size || '').trim();
+
+    if (tls === 'not supported' || cipher === 'none') return 'High';
+    if (keySize === '256' || keySize === '256-bit' || keySize === '256-Bit') return 'Low';
+    if (keySize === '2048' || keySize === '2048-bit' || keySize === '2048-Bit') return 'High';
+
+    return asset?.risk_level || 'Medium';
+  };
 
   const totalAssets = sourceAssets.length;
-  const highRisk = sourceAssets.filter((a) => (a.risk_level || '').toLowerCase() === 'high').length || summary?.high_risk_assets || 0;
+  const highRisk = sourceAssets.filter((a) => {
+    const level = deriveRiskLevel(a);
+    return level === 'High' || level === 'Critical';
+  }).length || summary?.high_risk_assets || 0;
   const expiringSoon = summary?.expiring_soon || 0;
   
   const apis = sourceAssets.filter((asset) => (asset.type || '').toLowerCase() === 'api').length;
   const servers = sourceAssets.filter((asset) => (asset.type || '').toLowerCase() === 'server').length;
+  const otherAssets = Math.max(0, totalAssets - apis - servers);
 
   const kpiCards = [
     { title: 'Total Assets', value: totalAssets, accentClass: 'border-l-4 border-blue-500', filter: '', delay: '0ms' },
@@ -56,6 +73,7 @@ export default function Dashboard({ scanData, isLoading, error }) {
     { title: 'Expiring Soon', value: expiringSoon, accentClass: 'border-l-4 border-secondary', filter: 'expiring', delay: '120ms' },
     { title: 'APIs', value: apis, accentClass: 'border-l-4 border-indigo-500', filter: 'api', delay: '180ms' },
     { title: 'Servers', value: servers, accentClass: 'border-l-4 border-emerald-500', filter: 'server', delay: '240ms' },
+    { title: 'Other Assets', value: otherAssets, accentClass: 'border-l-4 border-amber-500', filter: '', delay: '300ms' },
   ];
 
   const handleCardClick = (filter) => {
@@ -65,6 +83,7 @@ export default function Dashboard({ scanData, isLoading, error }) {
     }
     navigate('/assets');
   };
+  const priorityActions = buildPriorityActions(scanData);
 
   return (
     <div className="grid grid-cols-12 gap-4 auto-rows-min">
@@ -151,7 +170,7 @@ export default function Dashboard({ scanData, isLoading, error }) {
         </div>
       </section>
       <LiveActivity summary={summary} />
-      <Recommendations insights={insights} />
+      <Recommendations items={priorityActions} />
       <TopAssets data={scanData} />
     </div>
   );
