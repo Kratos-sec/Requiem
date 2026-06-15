@@ -166,7 +166,7 @@ export default function App() {
                 />
               }
             >
-              <Route index element={<Dashboard scanData={scanData} isLoading={isLoading} error={error} />} />
+              <Route index element={<Dashboard scanData={scanData} isLoading={isLoading} isScanning={isScanning} error={error} />} />
               <Route path="assets" element={<Assets scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="asset-inventory" element={<AssetInventory scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="vulnerability-scan" element={<VulnerabilityScan scanData={scanData} isLoading={isLoading} error={error} setNucleiResults={setNucleiResults} threatResults={threatResults} setThreatResults={setThreatResults} threatSummary={threatSummary} setThreatSummary={setThreatSummary} />} />

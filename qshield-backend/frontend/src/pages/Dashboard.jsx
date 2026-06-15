@@ -6,15 +6,88 @@ import { CertificateExpiryCard, IpVersionCard } from '../components/AnalyticsWid
 import TopAssets from '../components/TopAssets';
 import { useNavigate } from 'react-router-dom';
 import { buildPriorityActions } from '../utils/priorityActions';
+import { useEffect, useState } from 'react';
 
-export default function Dashboard({ scanData, isLoading, error }) {
+export default function Dashboard({ scanData, isLoading, isScanning, error }) {
   const navigate = useNavigate();
-  if (isLoading) {
+  const [step, setStep] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isScanning) return;
+      setStep(0);
+      return;
+    }
+    setStep(0);
+    setShowCompletion(false);
+    const timers = [
+      setTimeout(() => setStep(1), 0),
+      setTimeout(() => setStep(2), 30000),
+      setTimeout(() => setStep(3), 60000),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [isLoading, isScanning]);
+
+  useEffect(() => {
+    if (!isLoading && !isScanning) {
+      if (step >= 3) {
+        setShowCompletion(true);
+        const timer = setTimeout(() => setShowCompletion(false), 1200);
+        return () => clearTimeout(timer);
+      }
+      setShowCompletion(false);
+    }
+  }, [isLoading, isScanning, step]);
+
+  if (isLoading || showCompletion) {
+    const steps = [
+      { label: 'Scan initiated', done: step >= 1 },
+      { label: 'Port scanning complete', done: step >= 2 },
+      { label: 'Running PQC Risk Assessment...', done: step >= 3 },
+      { label: 'Processing results and generating report...', done: !isLoading && !isScanning && step >= 3 },
+    ];
+
     return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh]">
-        <span className="material-symbols-outlined animate-spin text-4xl text-secondary mb-4">autorenew</span>
-        <h3 className="font-bold text-lg text-on-surface">Scanning Infrastructure...</h3>
-        <p className="text-sm text-on-surface-variant mt-2">Running PQC Risk Assessment and CBOM Generation</p>
+      <div className="flex items-center justify-center min-h-[70vh] px-4">
+        <div
+          className="w-full max-w-xl rounded-3xl border border-[#e5dfd3] shadow-2xl p-6 md:p-8"
+          style={{ background: 'linear-gradient(135deg, #fdfbf6 0%, #f8f4ec 100%)' }}
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <span className="material-symbols-outlined animate-spin text-4xl text-secondary">autorenew</span>
+            <div>
+              <h3 className="font-bold text-xl text-on-surface">Scanning Infrastructure...</h3>
+              <p className="text-sm text-on-surface-variant mt-1">Running PQC Risk Assessment and CBOM Generation</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            {steps.map((item, index) => {
+              const active = step === index + 1;
+              return (
+                <div key={item.label} className="flex items-start gap-3 rounded-2xl bg-white/70 border border-[#e5dfd3] p-3">
+                  <div className={`h-8 w-8 rounded-full flex items-center justify-center border ${
+                    item.done
+                      ? 'bg-emerald-100 border-emerald-300 text-emerald-700'
+                      : active
+                        ? 'bg-secondary/10 border-secondary/30 text-secondary'
+                        : 'bg-surface-container-high border-outline-variant/40 text-on-surface-variant'
+                  }`}>
+                    <span className={`material-symbols-outlined text-[18px] ${active && !item.done ? 'animate-spin' : ''}`}>
+                      {item.done ? 'check_circle' : active ? 'autorenew' : 'radio_button_unchecked'}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-on-surface leading-tight">{item.label}</p>
+                    <p className="text-[11px] text-on-surface-variant leading-tight">
+                      {item.done ? 'Complete' : active ? 'Working...' : 'Waiting'}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }

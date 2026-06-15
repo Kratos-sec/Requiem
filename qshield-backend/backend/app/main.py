@@ -1119,6 +1119,12 @@ def stop_scan():
         try:
             if proc.poll() is None:
                 proc.terminate()
+                subprocess.run(
+                    ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    check=False,
+                )
                 try:
                     proc.wait(timeout=3)
                 except subprocess.TimeoutExpired:

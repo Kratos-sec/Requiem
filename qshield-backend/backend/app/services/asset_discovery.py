@@ -1,4 +1,5 @@
 import logging
+import json
 import re
 import socket
 import subprocess
@@ -26,6 +27,23 @@ logger = logging.getLogger(__name__)
 _DOMAIN_ALLOWED_RE = re.compile(r"^[A-Za-z0-9.-]+$")
 
 
+def _kill_process_tree(proc: subprocess.Popen[str]) -> None:
+    try:
+        proc.terminate()
+    except Exception:
+        pass
+    if hasattr(proc, "pid"):
+        try:
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        except Exception:
+            pass
+
+
 def _run_command(
     command: list[str],
     timeout: int,
@@ -47,7 +65,7 @@ def _run_command(
         step = 0.2
         while True:
             if is_running and not is_running():
-                proc.terminate()
+                _kill_process_tree(proc)
                 stdout, stderr = proc.communicate(timeout=2)
                 return subprocess.CompletedProcess(command, proc.returncode or 1, stdout, stderr)
             try:
@@ -56,7 +74,7 @@ def _run_command(
             except subprocess.TimeoutExpired:
                 elapsed += step
                 if elapsed >= timeout:
-                    proc.kill()
+                    _kill_process_tree(proc)
                     stdout, stderr = proc.communicate()
                     return subprocess.CompletedProcess(command, proc.returncode or 1, stdout, stderr)
                 continue
@@ -374,7 +392,14 @@ def _run_httpx(
     cmd = _locate_executable("httpx", fallback="httpx.exe") + [
         "-l",
         str(domains_path),
-        "-silent",
+        "-r",
+        "udp:1.1.1.1:53,udp:8.8.8.8:53,udp:9.9.9.9:53",
+        "-probe",
+        "-sc",
+        "-server",
+        "-title",
+        "-ip",
+        "-j",
         "-threads",
         "100",
     ]
@@ -395,6 +420,18 @@ def _run_httpx(
             if not line:
                 continue
             raw_target = line.split()[0]
+            if line.lstrip().startswith("{"):
+                try:
+                    parsed = json.loads(line)
+                except json.JSONDecodeError:
+                    parsed = {}
+                raw_target = (
+                    parsed.get("host")
+                    or parsed.get("input")
+                    or parsed.get("url")
+                    or parsed.get("host")
+                    or raw_target
+                )
             cleaned = _normalize_httpx_target(raw_target)
             if cleaned and _is_valid_domain(cleaned):
                 live.append(cleaned)
