@@ -144,27 +144,10 @@ export default function Assets({ scanData, isLoading, error }) {
     );
   }
 
-  const crtshAssetsByDomain = useMemo(() => {
-    const map = new Map();
-    (scanData.assets || []).forEach((asset) => {
-      const domain = (asset?.domain || '').toLowerCase();
-      if (domain) {
-        map.set(domain, asset);
-      }
-    });
-    return map;
-  }, [scanData.assets]);
-
   const sourceAssets = Array.isArray(scanData.cbom) && scanData.cbom.length ? scanData.cbom : scanData.assets || [];
   const assets = sourceAssets.map((asset) => {
-    const enrichment = crtshAssetsByDomain.get((asset?.domain || '').toLowerCase()) || {};
     return {
       ...asset,
-      issuer: asset?.issuer ?? enrichment?.issuer,
-      expiry_date: asset?.expiry_date ?? enrichment?.expiry_date,
-      days_remaining: asset?.days_remaining ?? enrichment?.days_remaining,
-      cert_valid_from: asset?.cert_valid_from ?? enrichment?.cert_valid_from,
-      cert_valid_to: asset?.cert_valid_to ?? enrichment?.cert_valid_to,
       type: getMappedType(asset?.type || 'Unknown'),
       services: dedupeServices(asset?.services || []),
     };

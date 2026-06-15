@@ -121,6 +121,7 @@ def scan_threat_surface(
             {
                 "domain": entry.get("domain"),
                 "type": entry.get("fuzzer"),
+                "dns_a": _normalize_ip(dns_a),
                 "ip": _normalize_ip(dns_a),
                 "has_mx": _normalize_mx(dns_mx),
                 "similarity": similarity,

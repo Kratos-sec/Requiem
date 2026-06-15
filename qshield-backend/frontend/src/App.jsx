@@ -41,7 +41,10 @@ export default function App() {
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState(null);
   const [nucleiResults, setNucleiResults] = useState([]);
+  const [threatResults, setThreatResults] = useState([]);
+  const [threatSummary, setThreatSummary] = useState(null);
   const nucleiStorageKey = 'nucleiResults';
+  const threatStorageKey = 'threatResults';
 
   useEffect(() => {
     try {
@@ -70,23 +73,48 @@ export default function App() {
 
   useEffect(() => {
     try {
+      const saved = localStorage.getItem(threatStorageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          if (Array.isArray(parsed.results)) setThreatResults(parsed.results);
+          if (parsed.summary) setThreatSummary(parsed.summary);
+        }
+      }
+    } catch {
+      // ignore storage errors
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
       localStorage.setItem(nucleiStorageKey, JSON.stringify(nucleiResults));
     } catch {
       // ignore storage errors
     }
   }, [nucleiResults]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(threatStorageKey, JSON.stringify({
+        results: threatResults,
+        summary: threatSummary,
+      }));
+    } catch {
+      // ignore storage errors
+    }
+  }, [threatResults, threatSummary]);
+
   const handleScan = async (domain, options = {}) => {
     setIsLoading(true);
     setIsScanning(true);
     setError(null);
     try {
-      const use_crtsh = Boolean(options.use_crtsh);
       // Proxy setup in Vite, or complete URL if CORS is enabled
       const response = await fetch('/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ domain, use_crtsh })
+        body: JSON.stringify({ domain })
       });
       if (!response.ok) {
         throw new Error('Scan failed');
@@ -141,7 +169,7 @@ export default function App() {
               <Route index element={<Dashboard scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="assets" element={<Assets scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="asset-inventory" element={<AssetInventory scanData={scanData} isLoading={isLoading} error={error} />} />
-              <Route path="vulnerability-scan" element={<VulnerabilityScan scanData={scanData} isLoading={isLoading} error={error} setNucleiResults={setNucleiResults} />} />
+              <Route path="vulnerability-scan" element={<VulnerabilityScan scanData={scanData} isLoading={isLoading} error={error} setNucleiResults={setNucleiResults} threatResults={threatResults} setThreatResults={setThreatResults} threatSummary={threatSummary} setThreatSummary={setThreatSummary} />} />
               <Route path="analytics" element={<Analytics scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="reports" element={<Reports scanData={scanData} isLoading={isLoading} error={error} />} />
               <Route path="cbom" element={<CBOM scanData={scanData} isLoading={isLoading} error={error} />} />

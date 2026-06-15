@@ -334,7 +334,6 @@ app.include_router(auth.router, prefix="/auth", tags=["auth"])
 
 class ScanRequest(BaseModel):
     domain: str
-    use_crtsh: bool = False
 
 
 class ThreatSurfaceRequest(BaseModel):
@@ -481,12 +480,18 @@ async def threat_surface(req: ThreatSurfaceRequest):
         raise HTTPException(status_code=422, detail="Invalid domain")
 
     try:
-        findings = await asyncio.to_thread(
-            scan_threat_surface,
-            domain,
-            req.phishing_detection,
-            req.active_only,
+        findings = await asyncio.wait_for(
+            asyncio.to_thread(
+                scan_threat_surface,
+                domain,
+                req.phishing_detection,
+                req.active_only,
+            ),
+            timeout=90,
         )
+    except asyncio.TimeoutError:
+        logger.error("Threat-surface scan timed out for %s", domain)
+        raise HTTPException(status_code=504, detail="Threat surface scan timed out")
     except Exception as exc:
         logger.exception("Threat-surface scan failed for %s", domain)
         raise HTTPException(status_code=500, detail=f"Threat surface scan failed: {exc}")
@@ -864,9 +869,9 @@ def scan_domain(request: ScanRequest):
 
     logger.info("scan request for %s", request.domain)
     try:
-        assets, crtsh_certificates = discover_assets(
+        assets, _crtsh_certificates = discover_assets(
             request.domain,
-            use_crtsh=request.use_crtsh,
+            use_crtsh=False,
             register_process=_set_scan_process,
             is_running=_is_scan_running,
         )
@@ -892,8 +897,6 @@ def scan_domain(request: ScanRequest):
                 "cbom": [],
                 "stopped": True,
             }
-            if request.use_crtsh:
-                response["crtsh_certificates"] = crtsh_certificates
             save_scan(request.domain, response)
             build_scan_context(
                 domain=request.domain,
@@ -923,14 +926,8 @@ def scan_domain(request: ScanRequest):
             for asset in assets
         ]
 
-        if request.use_crtsh:
-            _apply_crtsh_intel_to_assets(assets, crtsh_certificates)
-
         cbom = generate_cbom(crypto_results)
         cbom, risk = assess_pqc_risk(cbom)
-
-        if request.use_crtsh:
-            _apply_crtsh_intel_to_cbom(cbom, crtsh_certificates)
 
         for entry in cbom:
             entry.update(map_certificate_ui(entry.get("certificate_status", "UNREACHABLE")))
@@ -1091,9 +1088,6 @@ def scan_domain(request: ScanRequest):
             "cbom": cbom,
             "compliance": compliance,
         }
-
-        if request.use_crtsh:
-            response["crtsh_certificates"] = crtsh_certificates
 
         save_scan(request.domain, response)
         build_scan_context(

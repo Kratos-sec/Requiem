@@ -6,6 +6,21 @@ export default function AssetGraph({ scanData }) {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const containerRef = useRef(null);
 
+  const riskMap = useMemo(() => {
+    const map = new Map();
+    const source = Array.isArray(scanData?.cbom) && scanData.cbom.length ? scanData.cbom : scanData?.assets || [];
+    source.forEach((asset) => {
+      const domain = String(asset?.domain || '').toLowerCase();
+      if (domain) {
+        map.set(domain, {
+          risk: String(asset?.risk_level || '').toLowerCase(),
+          quantum: asset?.quantum_vulnerable,
+        });
+      }
+    });
+    return map;
+  }, [scanData]);
+
   useEffect(() => {
     if (containerRef.current) {
       setDimensions({
@@ -41,16 +56,23 @@ export default function AssetGraph({ scanData }) {
     sourceAssets.forEach((asset) => {
       const domainId = asset.domain;
       const ipId = asset.ip;
+      const assetRisk = riskMap.get(String(domainId || '').toLowerCase()) || {};
+      const riskLevel = String(assetRisk.risk || asset.risk_level || '').toLowerCase();
+      const quantumVulnerable = assetRisk.quantum ?? asset.quantum_vulnerable;
+      const isHighRisk = riskLevel === 'high' || riskLevel === 'critical' || quantumVulnerable === true;
+      const isMediumRisk = riskLevel === 'medium' || riskLevel === 'moderate';
+      const domainColor = isHighRisk ? '#ef4444' : isMediumRisk ? '#f59e0b' : '#22c55e';
+      const ipColor = isHighRisk ? '#b91c1c' : isMediumRisk ? '#d97706' : '#0f766e';
 
       if (domainId && domainId !== 'Unknown') {
-        addNode(domainId, 'domain', `Domain: ${domainId}`, '#0ea5e9'); // WWW Node (Blue)
+        addNode(domainId, 'domain', `Domain: ${domainId}`, domainColor);
 
         if (ipId && ipId !== 'Unknown') {
-          addNode(ipId, 'ip', `IP: ${ipId}`, '#14b8a6'); // IP Node (Teal)
+          addNode(ipId, 'ip', `IP: ${ipId}`, ipColor);
           addLink(domainId, ipId);
         }
       } else if (ipId && ipId !== 'Unknown') {
-        addNode(ipId, 'ip', `IP: ${ipId}`, '#14b8a6');
+        addNode(ipId, 'ip', `IP: ${ipId}`, ipColor);
       }
 
       // Base target for services
@@ -62,10 +84,11 @@ export default function AssetGraph({ scanData }) {
           const svcName = svc.product || svc.service || 'Unknown';
           const svcId = `${linkTarget}-${svcName}-${svc.port || ''}`;
 
-          let color = '#f97316'; // Orange default
+          let color = isHighRisk ? '#ef4444' : isMediumRisk ? '#f59e0b' : '#f97316';
           let group = 'service';
           if (svcName.toLowerCase().includes('ssh')) { group = 'ssh'; color = '#0d9488'; }
           if (svcName.toLowerCase().includes('ssl')) { group = 'ssl'; color = '#0284c7'; }
+          if (isHighRisk) color = '#dc2626';
 
           addNode(svcId, group, `${group.toUpperCase()}: ${svcName}`, color);
           addLink(linkTarget, svcId);
@@ -75,7 +98,7 @@ export default function AssetGraph({ scanData }) {
       // Add certificate/SSL
       if (linkTarget && asset.certificate) {
         const sslId = `${linkTarget}-ssl`;
-        addNode(sslId, 'ssl', `SSL: ${asset.certificate.issuer || 'Cert'}`, '#0284c7');
+        addNode(sslId, 'ssl', `SSL: ${asset.certificate.issuer || 'Cert'}`, isHighRisk ? '#dc2626' : '#0284c7');
         addLink(linkTarget, sslId);
       }
 
@@ -96,11 +119,13 @@ export default function AssetGraph({ scanData }) {
     const label = node.label;
     const fontSize = Math.max(12 / globalScale, 4);
 
-    const nodeColor = node.group === 'tag' ? '#d84d2f' :
-      node.group === 'domain' ? '#1d86d5' :
-        node.group === 'ssl' ? '#395c73' :
-          node.group === 'ssh' ? '#205a5d' :
-            node.group === 'file' ? '#843936' : '#13665a';
+    const nodeColor = node.color || (
+      node.group === 'tag' ? '#d84d2f' :
+        node.group === 'domain' ? '#1d86d5' :
+          node.group === 'ssl' ? '#395c73' :
+            node.group === 'ssh' ? '#205a5d' :
+              node.group === 'file' ? '#843936' : '#13665a'
+    );
 
     // Draw outer glow/border
     ctx.beginPath();

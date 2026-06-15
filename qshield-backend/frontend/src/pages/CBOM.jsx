@@ -69,6 +69,14 @@ const deriveQuantumState = (asset) => {
   return 'Unknown';
 };
 
+const formatKeyAlgorithm = (asset) => {
+  const bits = asset?.key_size ? `${asset.key_size}-Bit` : null;
+  const algo = String(asset?.certificate_algo || asset?.algorithm_type || asset?.algorithm || '').trim().toUpperCase();
+  if (algo && bits) return `${algo} (${bits})`;
+  if (algo) return algo;
+  return bits || <span className="text-gray-400">-</span>;
+};
+
 const tlsColor = (v) => {
   if (!v || v === 'Unknown' || v === 'Not Supported') return 'text-red-600';
   if (v === 'TLSv1.3') return 'text-green-700';
@@ -481,7 +489,7 @@ export default function CBOM({ scanData, isLoading, error }) {
                       <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${typeColor(type)}`}>{type}</span>
                     </td>
                     <td className="px-4 py-3 text-[11px] font-bold text-blue-700 whitespace-nowrap">
-                      {asset.key_size ? `${asset.key_size}-Bit` : <span className="text-gray-400">-</span>}
+                      {formatKeyAlgorithm(asset)}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap ${strengthColor(asset.key_strength)}`}>{strength}</span>

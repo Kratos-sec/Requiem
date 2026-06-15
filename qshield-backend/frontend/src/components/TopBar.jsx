@@ -20,8 +20,7 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
   const { user } = useContext(AuthContext);
   const [domain, setDomain]         = useState('');
   const [inputError, setInputError] = useState('');
-  const [useCrtsh, setUseCrtsh]     = useState(false);
-  const [focused, setFocused]       = useState(false);
+    const [focused, setFocused]       = useState(false);
   const canRunScan = canAccess(user?.role, 'scan');
 
   const handleSubmit = () => {
@@ -34,7 +33,7 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
     if (!sanitized) { setInputError('Please enter a domain to scan.'); return; }
     if (!isValidDomain(sanitized)) { setInputError('Enter a valid domain without protocol.'); return; }
     setDomain(sanitized);
-    onScan(sanitized, { use_crtsh: useCrtsh });
+      onScan(sanitized);
   };
 
   const stopScan = async () => { try { await onStopScan?.(); } catch { /* no-op */ } };
@@ -196,26 +195,6 @@ export default function TopBar({ onScan, onStopScan, isScanning = false }) {
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
             {canRunScan ? (
               <>
-                {/* crt.sh toggle */}
-                <label
-                  className="flex items-center gap-1.5 cursor-pointer px-2 py-1 rounded-lg select-none"
-                  title="Enumerate subdomains via crt.sh"
-                  style={{ color: 'rgba(255, 255, 255, 0.5)' }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={useCrtsh}
-                    onChange={(e) => setUseCrtsh(e.target.checked)}
-                    className="h-3.5 w-3.5 accent-secondary rounded"
-                  />
-                  <span style={{ fontSize: '9px', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                    crt.sh
-                  </span>
-                </label>
-
-                <span style={{ width: '1px', height: '16px', background: 'rgba(255, 255, 255, 0.15)' }} />
-
-                {/* Run / Stop button */}
                 {!isScanning ? (
                   <button
                     onClick={handleSubmit}
