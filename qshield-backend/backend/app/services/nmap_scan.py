@@ -1,15 +1,26 @@
 import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
+import os
+import shutil
 from pathlib import Path
 from typing import Callable
 
 
 def _locate_nmap() -> list[str]:
+    configured = (os.environ.get("NMAP_BINARY") or "").strip()
+    if configured:
+        return [configured]
+
     project_root = Path(__file__).resolve().parents[3]
     bundled = project_root / "nmap.exe"
     if bundled.exists():
         return [str(bundled)]
+
+    which_nmap = shutil.which("nmap")
+    if which_nmap:
+        return [which_nmap]
+
     return ["nmap"]
 
 
@@ -158,15 +169,33 @@ def scan_service_versions(
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".xml")
     temp_file.close()
     xml_path = Path(temp_file.name)
-    command = _locate_nmap() + ["-sV", "-T4", "-oX", str(xml_path), target]
+    command = _locate_nmap() + [
+        "-sT",
+        "-sV",
+        "--version-light",
+        "--version-intensity",
+        "5",
+        "-Pn",
+        "-n",
+        "--reason",
+        "--max-retries",
+        "2",
+        "--host-timeout",
+        "45s",
+        "-oX",
+        str(xml_path),
+        target,
+    ]
     try:
         result = _run_command(
             command,
-            timeout=60,
+            timeout=75,
             register_process=register_process,
             is_running=is_running,
         )
         if result is None:
+            return {"services": [], "ip": None}
+        if result.returncode != 0 and not xml_path.exists():
             return {"services": [], "ip": None}
         services, parsed_ip = _parse_services_from_xml(xml_path)
         return {"services": services, "ip": parsed_ip}

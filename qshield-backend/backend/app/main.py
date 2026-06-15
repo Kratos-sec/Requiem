@@ -3,6 +3,7 @@ import http.client
 import json
 import logging
 import os
+import platform
 import re
 import ssl
 import subprocess
@@ -602,6 +603,42 @@ def _stop_scan_process(process: subprocess.Popen | None) -> bool:
         return False
 
 
+def _terminate_process_tree(process: subprocess.Popen | None) -> bool:
+    if not process or process.poll() is not None:
+        return False
+
+    system_name = platform.system().lower()
+    try:
+        process.terminate()
+    except Exception:
+        pass
+
+    if system_name == "windows":
+        try:
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(process.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        except Exception:
+            pass
+    else:
+        try:
+            process.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            try:
+                process.kill()
+            except Exception:
+                pass
+            try:
+                process.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                pass
+
+    return True
+
+
 def map_certificate_ui(status: str) -> dict:
     return {
         "OK": {"certificate_severity": "low", "certificate_label": "Valid"},
@@ -1117,19 +1154,7 @@ def stop_scan():
     terminated = False
     if proc is not None:
         try:
-            if proc.poll() is None:
-                proc.terminate()
-                subprocess.run(
-                    ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    check=False,
-                )
-                try:
-                    proc.wait(timeout=3)
-                except subprocess.TimeoutExpired:
-                    proc.kill()
-                terminated = True
+            terminated = _terminate_process_tree(proc)
         except Exception:
             terminated = False
 

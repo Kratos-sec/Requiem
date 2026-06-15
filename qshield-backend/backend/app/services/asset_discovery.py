@@ -1,6 +1,7 @@
 import logging
 import json
 import re
+import platform
 import socket
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
@@ -32,7 +33,10 @@ def _kill_process_tree(proc: subprocess.Popen[str]) -> None:
         proc.terminate()
     except Exception:
         pass
-    if hasattr(proc, "pid"):
+    if not hasattr(proc, "pid"):
+        return
+
+    if platform.system().lower() == "windows":
         try:
             subprocess.run(
                 ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
@@ -40,6 +44,15 @@ def _kill_process_tree(proc: subprocess.Popen[str]) -> None:
                 stderr=subprocess.DEVNULL,
                 check=False,
             )
+        except Exception:
+            pass
+        return
+
+    try:
+        proc.wait(timeout=2)
+    except Exception:
+        try:
+            proc.kill()
         except Exception:
             pass
 
