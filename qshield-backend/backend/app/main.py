@@ -768,10 +768,10 @@ def run_crypto_scans(
                 break
             target = futures[future]
             try:
-                nmap_results[target] = future.result() or {"target": target, "services": [], "ip": None}
+                nmap_results[target] = future.result() or {"target": target, "services": [], "ip": None, "error": None}
             except Exception as exc:
                 print(f"Nmap error: {exc}")
-                nmap_results[target] = {"target": target, "services": [], "ip": None}
+                nmap_results[target] = {"target": target, "services": [], "ip": None, "error": str(exc)}
 
     def _scan_asset(asset: dict):
         if is_running and not is_running():
@@ -799,13 +799,15 @@ def run_crypto_scans(
                     is_running=is_running,
                 )
                 if target
-                else {"services": [], "ip": None}
+                else {"services": [], "ip": None, "error": None}
             )
         services = service_result.get("services", [])
         discovered_ip = service_result.get("ip")
+        nmap_error = service_result.get("error")
         if not asset.get("ip") and discovered_ip:
             asset["ip"] = discovered_ip
         asset["services"] = services
+        asset["nmap_error"] = nmap_error
         print("After Nmap:", asset)
         if not services:
             web_ports = [p for p in ("80", "443", "8080", "8443") if ports.get(p)]

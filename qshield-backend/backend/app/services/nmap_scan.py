@@ -38,6 +38,16 @@ def _parse_ports(output: str) -> dict:
     return ports
 
 
+def _trim_error_message(stderr: str | None, stdout: str | None = None) -> str:
+    text = (stderr or stdout or "").strip()
+    if not text:
+        return "Nmap exited without output"
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return "Nmap exited without output"
+    return lines[-1][:300]
+
+
 def _run_command(
     command: list[str],
     timeout: int,
@@ -96,24 +106,28 @@ def scan_ports(
             return {
                 "domain": domain,
                 "ports": {"80": False, "443": False, "8080": False, "8443": False},
+                "error": "Nmap binary not found or could not be started",
             }
 
         if result.returncode != 0:
             return {
                 "domain": domain,
                 "ports": {"80": False, "443": False, "8080": False, "8443": False},
+                "error": _trim_error_message(result.stderr, result.stdout),
             }
 
         ports = _parse_ports(result.stdout + result.stderr)
         return {
             "domain": domain,
             "ports": ports,
+            "error": None,
         }
 
     except (subprocess.TimeoutExpired, OSError):
         return {
             "domain": domain,
             "ports": {"80": False, "443": False, "8080": False, "8443": False},
+            "error": "Nmap scan timed out or could not be launched",
         }
 
 
@@ -194,13 +208,14 @@ def scan_service_versions(
             is_running=is_running,
         )
         if result is None:
-            return {"services": [], "ip": None}
+            return {"services": [], "ip": None, "error": "Nmap binary not found or could not be started"}
         if result.returncode != 0 and not xml_path.exists():
-            return {"services": [], "ip": None}
+            return {"services": [], "ip": None, "error": _trim_error_message(result.stderr, result.stdout)}
         services, parsed_ip = _parse_services_from_xml(xml_path)
-        return {"services": services, "ip": parsed_ip}
+        error = None if services else _trim_error_message(result.stderr, result.stdout)
+        return {"services": services, "ip": parsed_ip, "error": error}
     except (subprocess.TimeoutExpired, OSError):
-        return {"services": [], "ip": None}
+        return {"services": [], "ip": None, "error": "Nmap service detection timed out or could not be launched"}
     finally:
         if xml_path.exists():
             xml_path.unlink()
